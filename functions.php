@@ -6,7 +6,7 @@ add_action('wp_enqueue_scripts', 'sk8tech_theme_enqueue_styles');
 
 function sk8tech_theme_enqueue_styles() {
 
-	$parent_style = 'twentynineteen';
+	$parent_style = 'creditcard-parent-style';
 
 	wp_enqueue_style($parent_style, get_template_directory_uri() . '/style.css');
 
