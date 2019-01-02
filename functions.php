@@ -18,11 +18,5 @@ function ch_theme_enqueue_styles() {
 Add FullStory Integration
 Author: Jack
  */
-add_action('wp_head', 'add_fullstory');
-function add_fullstory() {
-	?>
-
-	<?php
-}
 
 ?>
