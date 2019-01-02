@@ -52,6 +52,6 @@ function add_fullstory() {
 			<?php }?>
 		</script>
 	<?php
-};
+}
 
 ?>
