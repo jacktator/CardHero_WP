@@ -14,3 +14,13 @@
  
 /* =Theme customization starts here
 ------------------------------------------------------- */
+
+/*  
+ Custom CSS to adjust the 'Compare' button for Alike plugin
+ Author:         Jacktator
+ Author URI:     https://jacktator.com/
+*/
+.alike-compare-widget-button {
+ bottom: -30px;
+ right: 80px;
+}
