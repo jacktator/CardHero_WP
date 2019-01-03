@@ -37,10 +37,12 @@
  Theme:         Credit Card
 */
 .trx_addons_scroll_to_top.show {
-    bottom: 8em;
+ bottom: 8em;
+ right: 2.5em;
 } 
 @media (max-width: 959px) {
  .trx_addons_scroll_to_top.show {
-    bottom: 8em;
+  bottom: 8em;
+  right: 2.5em;
  }
 }
