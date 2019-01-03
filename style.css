@@ -19,6 +19,7 @@
  Custom CSS to adjust the 'Compare' button for Alike plugin
  Author:         Jacktator
  Author URI:     https://jacktator.com/
+ Plugin:         Alike
 */
 .alike-compare-widget-button {
  bottom: -30px;
@@ -27,4 +28,19 @@
 .alike-compare-widget-content {
  bottom: -40px;
  right: 71px;
+}
+
+/*  
+ Custom CSS to adjust the 'Compare' button for Alike plugin
+ Author:         Jacktator
+ Author URI:     https://jacktator.com/
+ Plugin:         Alike
+*/
+.trx_addons_scroll_to_top.show {
+    bottom: 8em;
+} 
+@media (max-width: 959px) {
+ .trx_addons_scroll_to_top.show {
+    bottom: 8em;
+ }
 }
