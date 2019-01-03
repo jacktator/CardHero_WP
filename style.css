@@ -42,7 +42,7 @@
 } 
 @media (max-width: 959px) {
  .trx_addons_scroll_to_top.show {
-  bottom: 8em;
-  right: 2.5em;
+  bottom: 6em;
+  right: 0.5em;
  }
 }
