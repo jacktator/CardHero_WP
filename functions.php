@@ -135,8 +135,8 @@ function ch_generate_earn_table( $atts ) {
 
     $fields = get_fields($rewards_program->ID, $format_value);
 
-    $qantas = $fields->qantas
-    $qantas2 = $fields['qantas']
+    $qantas = $fields->qantas;
+    $qantas2 = $fields['qantas'];
 
     echo '<pre>';
         print_r( $fields );
