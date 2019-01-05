@@ -215,23 +215,22 @@ function ch_generate_redemption_table( $atts ) {
         // Construct Table Body
         $table .= '<tbody>';
         while (the_repeater_field('redemption_parnters')) {
+
+            $partner_program = get_sub_field_object('partner_program');
             $redemption_rate = the_sub_field('redemption_rate');
-            
-        echo "WTF 2";
-                    $notes = the_sub_field('notes');
-                    $partner_program = get_sub_field_object('partner_program');
-        echo "WTF 3";
-                    $table .= '<tr>';
-                        $table .= '<td>' . $partner_program->company . '</td>';
-                        $table .= '<td>' . $partner_program->program . '</td>';
-        echo "WTF 4";
-                        if ($value === 0) {
-                            $table .= '<td>Not Available</td>';
-                        } else {
-                            $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '<br/>' . $notes . '</td>';
-                        }
-        echo "WTF 5";
-                    $table .= '</tr>';
+            $notes = the_sub_field('notes');
+                    
+                    print_r($partner_program);
+
+            $table .= '<tr>';
+                $table .= '<td>' . $partner_program->company . '</td>';
+                $table .= '<td>' . $partner_program->program . '</td>';
+                if ($value === 0) {
+                    $table .= '<td>Not Available</td>';
+                } else {
+                    $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '<br/>' . $notes . '</td>';
+                }
+            $table .= '</tr>';
         }
 
         // Close Table
