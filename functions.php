@@ -202,7 +202,7 @@ function ch_generate_redemption_table( $atts ) {
         while (the_repeater_field('redemption_parnters')) {
             echo "WTF 1";
             $partner_program = the_sub_field('partner_program');
-            echo $partner_program;
+            echo $partner_program->ID;
             $redemption_rate = the_sub_field('redemption_rate');
             echo $redemption_rate;
             $notes = the_sub_field('notes');
