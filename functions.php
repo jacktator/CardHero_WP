@@ -200,7 +200,8 @@ function ch_generate_redemption_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
 
-    $fields = get_fields();
+    $fields = get_field_objects();
+    
     if( $fields )
     {
         $table = '';
