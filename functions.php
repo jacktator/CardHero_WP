@@ -30,4 +30,17 @@ function Use_wpBakery() {
   vc_editor_set_post_types($vc_list);
 }
 
+/*
+    Enable 'show_in_rest' option in ACF & ACF Pro
+    
+    Author: Jacktator
+    Plugin: ACF Pro 5.7.9
+    Reference: https://github.com/airesvsg/acf-to-rest-api
+*/
+// Enable the option show in rest
+add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
+
+// Enable the option edit in rest
+add_filter( 'acf/rest_api/field_settings/edit_in_rest', '__return_true' );
+
 ?>
