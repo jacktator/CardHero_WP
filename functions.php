@@ -131,7 +131,7 @@ function ch_generate_earn_table( $atts ) {
     
     
     // // get value and return it
-    $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
+    $rewards_program = get_field( 'rewards_program');
 
     // $velocity = $fields['velocity'];
     // $velocity = $velocity * $earn_rate;
@@ -160,7 +160,7 @@ function ch_generate_earn_table( $atts ) {
                     echo '<td>' . $field['label'] . '</td>';
                     echo '<td>' . $field['append'] . '</td>';
                     if (if_zero($value)) {
-                        echo '<td>' . Not Available . '</td>';
+                        echo '<td>Not Available</td>';
                     } else {
                         echo '<td>' . $value * $earn_rate . '</td>';
                     }
