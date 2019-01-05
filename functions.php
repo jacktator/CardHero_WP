@@ -134,45 +134,51 @@ function ch_generate_earn_table( $atts ) {
 
     if ( $rewards_program ) {
 
-        $fields = get_field_objects($rewards_program->ID);
-        if( $fields ) {
-            $table = '';
-            // Construct Table Head
-            $table_head = '<table style="width: 100%;">
-                    <thead>
-                    <tr>
-                    <th>Program</th>
-                    <th>Effective Earn Rate</th>
-                    </tr>
-                    </thead>';
-            $table .= $table_head;
+    if (have_rows('redemption_parnters', $rewards_program->ID)) {
+        $table = '';
+        // Construct Table Head
+        $table_head = '<table style="width: 100%;">
+                <thead>
+                <tr>
+                <th>Reward Program</th>
+                <th>Effective Earn Rate (1 point earns...)</th>
+                </tr>
+                </thead>';
+        $table .= $table_head;
 
-            // Construct Table Body
-            $table .= '<tbody>';
-            foreach( $fields as $field_name => $field )
-            {
-                $value = $field['value'];
-                if (is_numeric($value) && $field['label'] !== 'Points Valuation') {
-                    $table .= '<tr>';
-                        $table .= '<td>' . $field['label'] . '</td>';
-                        if ($value === 0) {
-                            $table .= '<td>Not Available</td>';
-                        } else {
-                            $effective_earn_rate = $value * $earn_rate;
-                            $table .= '<td>' . $effective_earn_rate . ' ' . $field['append'] . '</td>';
-                        }
-                    $table .= '</tr>';
+        // Construct Table Body
+        $table .= '<tbody>';
+
+        while (have_rows('redemption_parnters', $rewards_program->ID)) {
+
+            $partner_program = get_sub_field('partner_program');
+            $partner_program_fields = get_field_objects($partner_program->ID);
+            $partner_program_company = get_field('company', $partner_program->ID);
+            $partner_program_program = get_field('program', $partner_program->ID);
+            $partner_program_unit = get_field('unit', $partner_program->ID);
+            $partner_program_points_value = get_field('points_value', $partner_program->ID);
+
+            $redemption_rate = get_sub_field('redemption_rate');
+            $notes = get_sub_field('notes');
+
+            $table .= '<tr>';
+                $table .= '<td>' . $partner_program_company . ' ' . $partner_program_program . '</td>';
+                if ($value === 0) {
+                    $table .= '<td>Not Available</td>';
+                } else {
+                    $table .= '<td> $1 earns' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '. <br/><small>' . $notes . '</small></td>';
                 }
-            }
-
-            // Close Table
-            $table .= '</tbody></table>';
-
-            // Return Table
-            return $table;
-        } else {
-            return 'Fields is empty.';
+            $table .= '</tr>';
         }
+
+        // Close Table
+        $table .= '</tbody></table>';
+
+        // Return Table
+        return $table;
+    } else {
+        return 'redemption_parnters is empty.';
+    }
     } else {
         return 'Rewards Program is empty.';
     }
@@ -214,8 +220,6 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '<tbody>';
 
         while (have_rows('redemption_parnters')) {
-
-            the_row();
 
             $partner_program = get_sub_field('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
