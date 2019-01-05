@@ -216,7 +216,7 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '<tbody>';
         while (the_repeater_field('redemption_parnters')) {
 
-            $partner_program = get_sub_field_object('partner_program');
+            $partner_program = the_sub_field_object('partner_program');
             $redemption_rate = the_sub_field('redemption_rate');
             $notes = the_sub_field('notes');
                     
