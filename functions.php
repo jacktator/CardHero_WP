@@ -159,7 +159,7 @@ function ch_generate_earn_table( $atts ) {
                 echo '<tr>';
                     echo '<td>' . $field['label'] . '</td>';
                     echo '<td>' . $field['append'] . '</td>';
-                    if (is_null($value) || if_zero($value)) {
+                    if (if_zero($value)) {
                         echo '<td>' . Not Available . '</td>';
                     } else {
                         echo '<td>' . $value . '</td>';
