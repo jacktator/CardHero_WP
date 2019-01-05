@@ -227,6 +227,7 @@ function ch_generate_redemption_table( $atts ) {
             $notes = get_sub_field('notes');
 
             echo "<pre>";
+                echo "partner_program: " . $partner_program->ID;
                 echo $partner_program_company;
                 echo $partner_program_program;
                 echo $partner_program_unit;
