@@ -136,6 +136,7 @@ function ch_generate_earn_table( $atts ) {
     $fields = get_field_objects($rewards_program->ID);
     if( $fields )
     {
+        $table = '';
         // Construct Table Head
         $table_head = '<table style="width: 100%;">
                 <thead>
@@ -145,30 +146,36 @@ function ch_generate_earn_table( $atts ) {
                 <th>Effective Earn Rate</th>
                 </tr>
                 </thead>';
-        echo $table_head;
+        $table .= $table_head;
 
         // Construct Table Body
-        echo '<tbody>';
+        $table .= '<tbody>';
         foreach( $fields as $field_name => $field )
         {
             $value = $field['value'];
             if (is_numeric($value)) {
-                echo '<tr>';
-                    echo '<td>' . $field['label'] . '</td>';
-                    echo '<td>' . $field['append'] . '</td>';
+                $table .= '<tr>';
+                    $table .= '<td>' . $field['label'] . '</td>';
+                    $table .= '<td>' . $field['append'] . '</td>';
                     if ($value === 0) {
-                        echo '<td>Not Available</td>';
+                        $table .= '<td>Not Available</td>';
                     } else {
                         $effective_earn_rate = $value * $earn_rate;
-                        echo '<td>' . $effective_earn_rate . '</td>';
+                        $table .= '<td>' . $effective_earn_rate . ' ' . $field['append'] . '</td>';
                     }
-                echo '</tr>';
+                $table .= '</tr>';
             }
         }
-        echo '</tbody></table>';
+
+        // Close Table
+        $table .= '</tbody></table>';
+
+        // Return Table
+        return $table;
+    } else {
+        return 'Fields is empty.';
     }
 }
-
 add_shortcode('ch_earn_table', 'ch_generate_earn_table');
 
 ?>
