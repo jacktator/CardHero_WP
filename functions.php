@@ -135,10 +135,16 @@ function ch_generate_earn_table( $atts ) {
 
     $fields = get_fields($rewards_program->ID, $format_value);
     echo '<pre>';
-        print_r( $rewards_program->ID);
-        print_r( $rewards_program );
         print_r( $fields );
     echo '</pre>';
+    
+    if( $fields ): ?>
+    <ul>
+        <?php foreach( $fields as $name => $value ): ?>
+            <li><b><?php echo $name; ?></b> <?php echo $value; ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
     // if( $post_object ) {
     //     // override $post
