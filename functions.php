@@ -218,16 +218,20 @@ function ch_generate_redemption_table( $atts ) {
 
             $partner_program = get_sub_field_object('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
+            $partner_program_company = get_field('company', $partner_program->ID);
+            $partner_program_program = get_field('program', $partner_program->ID);
+            $partner_program_unit = get_field('unit', $partner_program->ID);
+            $partner_program_points_value = get_field('points_value', $partner_program->ID);
 
             $redemption_rate = get_sub_field('redemption_rate');
             $notes = get_sub_field('notes');
 
             echo "<pre>";
-                echo $partner_program_fields['unit']['value'];
-                echo $partner_program_fields['company']['value'];
-                echo $partner_program_fields['program']['value'];
-                echo $partner_program_fields['points_value']['value'];
-                print_r($partner_program_fields);
+                echo $partner_program_company;
+                echo $partner_program_program;
+                echo $partner_program_unit;
+                echo $partner_program_points_value;
+                // print_r($partner_program_fields);
             echo "</pre>";
 
             $table .= '<tr>';
