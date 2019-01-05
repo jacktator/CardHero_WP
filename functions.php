@@ -223,9 +223,11 @@ function ch_generate_redemption_table( $atts ) {
             $company_id = $partner_program->ID;
             $company1 = $partner_program->company;
             $company2 = $partner_program['company'];
+            echo "<pre>";
             echo "company_id 1: " . $company_id;
             echo "<br/>company 1: " . $company1;
             echo "<br/>company 2: " . $company2;
+            echo "</pre>";
 
             $table .= '<tr>';
                 $table .= '<td>' . $partner_program->company . '</td>';
