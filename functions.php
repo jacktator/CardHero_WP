@@ -214,11 +214,9 @@ function ch_generate_redemption_table( $atts ) {
 
         // Construct Table Body
         $table .= '<tbody>';
-        echo "WTF 0";
         while (the_repeater_field('redemption_parnters')) {
-        echo "WTF 1";
             $redemption_rate = the_sub_field('redemption_rate');
-                if ( is_numeric($redemption_rate) ) {
+            
         echo "WTF 2";
                     $notes = the_sub_field('notes');
                     $partner_program = get_sub_field_object('partner_program');
@@ -234,7 +232,6 @@ function ch_generate_redemption_table( $atts ) {
                         }
         echo "WTF 5";
                     $table .= '</tr>';
-            }
         }
 
         // Close Table
