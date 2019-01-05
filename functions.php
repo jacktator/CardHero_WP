@@ -197,9 +197,7 @@ function ch_generate_redemption_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
 
-    $redemption_parnters = get_field('redemption_parnters');
-
-    if( $redemption_parnters ) {
+    if (have_rows('redemption_parnters')) {
         $table = '';
         // Construct Table Head
         $table_head = '<table style="width: 100%;">
@@ -214,8 +212,11 @@ function ch_generate_redemption_table( $atts ) {
 
         // Construct Table Body
         $table .= '<tbody>';
-        while (the_repeater_field('redemption_parnters')) {
 
+        while (have_rows('redemption_parnters')) {
+
+            the_row();
+            
             $partner_program = get_sub_field_object('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
             $partner_program_company = get_field('company', $partner_program->ID);
