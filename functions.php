@@ -141,7 +141,7 @@ function ch_generate_earn_table( $atts ) {
                 <thead>
                 <tr>
                 <th>Reward Program</th>
-                <th>Effective Earn Rate (1 point earns...)</th>
+                <th>Effective Earn Rate</th>
                 </tr>
                 </thead>';
         $table .= $table_head;
@@ -211,9 +211,9 @@ function ch_generate_redemption_table( $atts ) {
         $table_head = '<table style="width: 100%;">
                 <thead>
                 <tr>
-                <th>Partner</th>
-                <th>Program</th>
-                <th>Redemption Rate (1 point redeems for...)</th>
+                <th>Company</th>
+                <th>Reward Program</th>
+                <th>Redemption Rate</th>
                 </tr>
                 </thead>';
         $table .= $table_head;
