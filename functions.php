@@ -220,15 +220,12 @@ function ch_generate_redemption_table( $atts ) {
             $redemption_rate = get_sub_field('redemption_rate');
             $notes = get_sub_field('notes');
                     
-            $company_id = $partner_program->ID;
-            $company1 = $partner_program->company;
+            $company_id = $partner_program['ID'];
+            $company1 = $partner_program->['value'];
             $company2 = $partner_program['company'];
             echo "<pre>";
-            echo $partner_program;
-            print_r($partner_program);
+            print_r($company1);
             echo "<br/>company_id 1: " . $company_id;
-            echo "<br/>company 1: " . $company1;
-            echo "<br/>company 2: " . $company2;
             echo "</pre>";
 
             $table .= '<tr>';
