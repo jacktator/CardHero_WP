@@ -216,15 +216,16 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '<tbody>';
         while (the_repeater_field('redemption_parnters')) {
 
-            $partner_program = the_sub_field_object('partner_program');
-            $redemption_rate = the_sub_field('redemption_rate');
-            $notes = the_sub_field('notes');
+            $partner_program = get_sub_field_object('partner_program');
+            $redemption_rate = get_sub_field('redemption_rate');
+            $notes = get_sub_field('notes');
                     
             $company_id = $partner_program->ID;
             $company1 = $partner_program->company;
             $company2 = $partner_program['company'];
             echo "<pre>";
-            echo "company_id 1: " . $company_id;
+            echo $partner_program;
+            echo "<br/>company_id 1: " . $company_id;
             echo "<br/>company 1: " . $company1;
             echo "<br/>company 2: " . $company2;
             echo "</pre>";
