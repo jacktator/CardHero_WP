@@ -139,126 +139,36 @@ function ch_generate_earn_table( $atts ) {
     $fields = get_field_objects($rewards_program->ID);
     if( $fields )
     {
-        foreach( $fields as $field_name => $field )
-        {
-            echo '<div>';
-                echo '<h3>' . $field['label'] . '</h3>';
-                echo $field['value'];
-                echo '<br/>name: ' . $field['name'];
-                echo '<br/>key: ' . $field['key'];
-                echo '<br/>prefix: ' . $field['prefix'];
-                echo '<br/>append: ' . $field['append'];
-                echo '<br/>prepend: ' . $field['prepend'];
-                echo '<br/>field_name: ' . $field_name;
-            echo '</div>';
-        }
-    }
-
-    // if( $post_object ) {
-    //     // override $post
-    //     $program = $rewards_program;
-    //     setup_postdata( $program ); 
-
-    //     $qantas = the_field('qantas');
-    // return $qantas;
-
-    //     wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly 
-    // }
-    
-    // $qantas = $rewards_program['qantas'];
-
-    $output = '<table style="width: 100%;">
+        // Construct Table Head
+        $table_head = '<table style="width: 100%;">
                 <thead>
                 <tr>
                 <th>Partner</th>
                 <th>Program</th>
                 <th>Effective Earn Rate</th>
                 </tr>
-                </thead>'
-                .
-                '
-                <tbody>
-                <tr>
-                <td>Qantas</td>
-                <td>Qantas Points</td>
-                <td>Not Available</td>
-                </tr>
-                <tr>
-                <td>Virgin Australia</td>
-                <td>Velocity Points</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Cathy Pacific</td>
-                <td>Asia Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Singapore Airline</td>
-                <td>Krisflyer Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Emirates</td>
-                <td>Skywards Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Etihad</td>
-                <td>Etihad Guest Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Virgin Atalantic</td>
-                <td>Flying Club Miles</td>
-                <td>Not Available</td>
-                </tr>
-                <tr>
-                <td>Air New Zealand</td>
-                <td>Airpoints</td>
-                <td>0.0075</td>
-                </tr>
-                <tr>
-                <td>Thai Airways</td>
-                <td>Royal Orchid Plus Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Malaysia Airlines</td>
-                <td>Enrich Miles</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>Hilton Honors</td>
-                <td>Honors Points</td>
-                <td>0.75</td>
-                </tr>
-                <tr>
-                <td>SPG &amp; Marriot</td>
-                <td>Marriott Rewards Points</td>
-                <td>0.66</td>
-                </tr>
-                </tbody>
-                </table>';
-    // return $output;
+                </thead>';
+        echo $table_head;
 
-    // array
-    // if( is_array($value) ) {
-        
-    //     $value = @implode( ', ', $value );
-        
-    // }
-
-    // $atts = shortcode_atts( array(
-    //     'earn_rate' => '', // Default value.
-    // ), $atts );
-
-    // $earn_rate = echo (!$atts['earn_rate']) ? '' : $atts['earn_rate'];
-
-    // $output = '[acf field="image" earn_rate="' . $atts['earn_rate'] . '"]';
-    // $output = do_shortcode( $output );
-    // $output = '<img src="' . $output . '" />';
-    // return $output;
+        // Construct Table Body
+        echo '<tbody>';
+        foreach( $fields as $field_name => $field )
+        {
+            $value = $field['value'];
+            if (is_numeric($value)) {
+                echo '<tr>';
+                    echo '<td>' . $field['label'] . '</td>';
+                    echo '<td>' . $field['append'] . '</td>';
+                    if (is_null($value) || if_zero($value)) {
+                        echo '<td>' . Not Available . '</td>';
+                    } else {
+                        echo '<td>' . $value . '</td>';
+                    }
+                echo '</tr>';
+            }
+        }
+        echo '</tbody></table>';
+    }
 }
 
 add_shortcode('ch_earn_table', 'ch_generate_earn_table');
