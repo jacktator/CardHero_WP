@@ -197,27 +197,9 @@ function ch_generate_redemption_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
 
-    if(get_field('redemption_parnters')) {
-        echo "WTF 0";
-        while (the_repeater_field('redemption_parnters')) {
-            echo "WTF 2";
-            $redemption_rate = the_sub_field('redemption_rate');
-            echo "WTF 3";
-            echo $redemption_rate;
-            $notes = the_sub_field('notes');
-            echo "WTF 4";
-            echo $notes;
-            echo "WTF 1";
-            $partner_program = get_sub_field_object('partner_program');
-            echo "WTF 1.5";
-            echo $partner_program->ID;
-        }
-    }
+    $redemption_parnters = get_field('redemption_parnters');
 
-    $fields = get_field_objects();
-
-    if( $fields )
-    {
+    if( $redemption_parnters ) {
         $table = '';
         // Construct Table Head
         $table_head = '<table style="width: 100%;">
@@ -232,19 +214,26 @@ function ch_generate_redemption_table( $atts ) {
 
         // Construct Table Body
         $table .= '<tbody>';
-        foreach( $fields as $field_name => $field )
-        {
-            $value = $field['value'];
-                if (is_numeric($value) && $field['label'] !== 'Points Valuation') {
-                $table .= '<tr>';
-                    $table .= '<td>' . $field['label'] . '</td>';
-                    $table .= '<td>' . $field['append'] . '</td>';
-                    if ($value === 0) {
-                        $table .= '<td>Not Available</td>';
-                    } else {
-                        $table .= '<td>' . $value . ' ' . $field['append'] . '</td>';
-                    }
-                $table .= '</tr>';
+        echo "WTF 0";
+        while (the_repeater_field('redemption_parnters')) {
+        echo "WTF 1";
+            $redemption_rate = the_sub_field('redemption_rate');
+                if ( is_numeric($redemption_rate) ) {
+        echo "WTF 2";
+                    $notes = the_sub_field('notes');
+                    $partner_program = get_sub_field_object('partner_program');
+        echo "WTF 3";
+                    $table .= '<tr>';
+                        $table .= '<td>' . $partner_program->company . '</td>';
+                        $table .= '<td>' . $partner_program->program . '</td>';
+        echo "WTF 4";
+                        if ($value === 0) {
+                            $table .= '<td>Not Available</td>';
+                        } else {
+                            $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '<br/>' $notes . '</td>';
+                        }
+        echo "WTF 5";
+                    $table .= '</tr>';
             }
         }
 
@@ -254,7 +243,7 @@ function ch_generate_redemption_table( $atts ) {
         // Return Table
         // return $table;
     } else {
-        return 'Fields is empty.';
+        return 'redemption_parnters is empty.';
     }
 }
 add_shortcode('ch_redemption_table', 'ch_generate_redemption_table');
