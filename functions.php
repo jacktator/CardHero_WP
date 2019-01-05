@@ -217,8 +217,8 @@ function ch_generate_redemption_table( $atts ) {
 
             the_row();
 
-            $partner_program = get_sub_field_object('partner_program');
-            $partner_program_fields = get_field($partner_program->ID);
+            $partner_program = get_sub_field('partner_program');
+            $partner_program_fields = get_field_objects($partner_program->ID);
             $partner_program_company = get_field('company', $partner_program->ID);
             $partner_program_program = get_field('program', $partner_program->ID);
             $partner_program_unit = get_field('unit', $partner_program->ID);
