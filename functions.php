@@ -25,7 +25,7 @@ function ch_theme_enqueue_styles() {
 */
 add_action( 'vc_before_init', 'Use_wpBakery' );
 function Use_wpBakery() {
-  $vc_list = array('page','credit_cards', 'reward_programs');
+  $vc_list = array('page','credit_cards', 'reward_programs', 'cpt_services');
   vc_set_default_editor_post_types($vc_list);
   vc_editor_set_post_types($vc_list);
 }
