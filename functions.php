@@ -152,7 +152,7 @@ function ch_generate_earn_table( $atts ) {
         while (have_rows('redemption_parnters', $rewards_program->ID)) {
 
             the_row();
-            
+
             $partner_program = get_sub_field('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
             $partner_program_company = get_field('company', $partner_program->ID);
@@ -168,7 +168,7 @@ function ch_generate_earn_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> $1 earns' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '. <br/><small>' . $notes . '</small></td>';
+                    $table .= '<td> $1 earns <strong>' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
         }
@@ -241,7 +241,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . get_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program_unit . '. <br/><small>' . $notes . '</small></td>';
+                    $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
         }
