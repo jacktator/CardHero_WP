@@ -43,4 +43,71 @@ add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
 // Enable the option edit in rest
 add_filter( 'acf/rest_api/field_settings/edit_in_rest', '__return_true' );
 
+
+/*
+    Add shortcode support for ACF Table Field
+    
+    Author: Jacktator
+    Plugin: Advanced Custom Field Table Field 1.2.6
+    Reference: https://wordpress.org/plugins/advanced-custom-fields-table-field/
+*/
+function shortcode_acf_tablefield( $atts ) {
+
+    $a = shortcode_atts( array(
+        'field-name' => false,
+        'post-id' => false,
+    ), $atts );
+
+    $table = get_field( $a['field-name'], $a['post-id'] );
+
+    $return = '';
+
+    if ( $table ) {
+
+        $return .= '<table border="0">';
+
+            if ( $table['header'] ) {
+
+                $return .= '<thead>';
+
+                    $return .= '<tr>';
+
+                        foreach ( $table['header'] as $th ) {
+
+                            $return .= '<th>';
+                                $return .= $th['c'];
+                            $return .= '</th>';
+                        }
+
+                    $return .= '</tr>';
+
+                $return .= '</thead>';
+            }
+
+            $return .= '<tbody>';
+
+                foreach ( $table['body'] as $tr ) {
+
+                    $return .= '<tr>';
+
+                        foreach ( $tr as $td ) {
+
+                            $return .= '<td>';
+                                $return .= $td['c'];
+                            $return .= '</td>';
+                        }
+
+                    $return .= '</tr>';
+                }
+
+            $return .= '</tbody>';
+
+        $return .= '</table>';
+    }
+
+    return $return;
+}
+
+add_shortcode( 'table', 'shortcode_acf_tablefield' );
+
 ?>
