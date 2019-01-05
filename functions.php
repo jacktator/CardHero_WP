@@ -135,15 +135,12 @@ function ch_generate_earn_table( $atts ) {
 
     $fields = get_fields($rewards_program->ID, $format_value);
 
-    $qantas = $fields->velocity;
-    $qantas2 = $fields['velocity'];
-    $qantas3 = get_fields('velocity', $rewards_program->ID, $format_value);
+    $velocity = $fields['velocity'];
 
     echo '<pre>';
-        print_r( $fields );
-        print_r( '0 ' . $qantas );
-        print_r( '1 ' . $qantas2 );
-        print_r( '2 ' . $qantas3 );
+        print_r( 'Orig ' . $velocity );
+        $velocity = $velocity * $earn_rate;
+        print_r( ', Calculated ' . $velocity );
     echo '</pre>';
 
     // if( $post_object ) {
