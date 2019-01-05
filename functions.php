@@ -223,10 +223,10 @@ function ch_generate_redemption_table( $atts ) {
             $notes = get_sub_field('notes');
 
             echo "<pre>";
-                print_r($partner_program_fields['unit']);
-                print_r($partner_program_fields['company']);
-                print_r($partner_program_fields['program']);
-                print_r($partner_program_fields['points_value']);
+                echo $partner_program_fields['unit'];
+                echo $partner_program_fields['company'];
+                echo $partner_program_fields['program'];
+                echo $partner_program_fields['points_value'];
                 print_r($partner_program_fields);
             echo "</pre>";
 
