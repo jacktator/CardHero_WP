@@ -133,8 +133,8 @@ function ch_generate_earn_table( $atts ) {
     // // get value and return it
     $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
 
-    $velocity = $fields['velocity'];
-    $velocity = $velocity * $earn_rate;
+    // $velocity = $fields['velocity'];
+    // $velocity = $velocity * $earn_rate;
 
     $fields = get_field_objects($rewards_program->ID);
     if( $fields )
