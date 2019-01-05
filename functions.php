@@ -151,6 +151,8 @@ function ch_generate_earn_table( $atts ) {
 
         while (have_rows('redemption_parnters', $rewards_program->ID)) {
 
+            the_row();
+            
             $partner_program = get_sub_field('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
             $partner_program_company = get_field('company', $partner_program->ID);
@@ -211,7 +213,7 @@ function ch_generate_redemption_table( $atts ) {
                 <tr>
                 <th>Partner</th>
                 <th>Program</th>
-                <th>Redemption Rate (1 point redeems for)</th>
+                <th>Redemption Rate (1 point redeems for...)</th>
                 </tr>
                 </thead>';
         $table .= $table_head;
@@ -220,6 +222,8 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '<tbody>';
 
         while (have_rows('redemption_parnters')) {
+
+            the_row();
 
             $partner_program = get_sub_field('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
