@@ -162,7 +162,7 @@ function ch_generate_earn_table( $atts ) {
                     if (if_zero($value)) {
                         echo '<td>Not Available</td>';
                     } else {
-                        $effective_earn_rate = $value * $earn_rate
+                        $effective_earn_rate = $value * $earn_rate;
                         echo '<td>' . $effective_earn_rate . '</td>';
                     }
                 echo '</tr>';
