@@ -160,8 +160,10 @@ function ch_generate_earn_table( $atts ) {
                         echo '<td>Not Available</td>';
                     } else {
                         $effective_earn_rate = $value * $earn_rate;
+                        print_r('<td>WTF: ' . $value);
+                        print_r('WTF: ' . $earn_rate);
                         print_r('WTF: ' . $effective_earn_rate);
-                        echo '<td>$effective_earn_rate</td>';
+                        echo '$effective_earn_rate</td>';
                     }
                 echo '</tr>';
             }
