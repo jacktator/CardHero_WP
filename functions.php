@@ -133,16 +133,20 @@ function ch_generate_earn_table( $atts ) {
     // // get value and return it
     $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
 
-    if( $post_object ) {
-        // override $post
-        $program = $rewards_program;
-        setup_postdata( $program ); 
+    echo '<pre>';
+        print_r( $rewards_program );
+    echo '</pre>';
 
-        $qantas = the_field('qantas');
-    return $qantas;
+    // if( $post_object ) {
+    //     // override $post
+    //     $program = $rewards_program;
+    //     setup_postdata( $program ); 
 
-        wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly 
-    }
+    //     $qantas = the_field('qantas');
+    // return $qantas;
+
+    //     wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly 
+    // }
     
     // $qantas = $rewards_program['qantas'];
 
