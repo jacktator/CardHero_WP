@@ -233,7 +233,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . get_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program_unit . '. ' . $notes . '</td>';
+                    $table .= '<td> 1 ' . get_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program_unit . '. <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
         }
