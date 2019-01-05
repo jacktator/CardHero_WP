@@ -123,17 +123,17 @@ add_shortcode( 'table', 'shortcode_acf_tablefield' );
 function ch_generate_earn_table( $atts ) {
     
     // extract attributs
-    extract( shortcode_atts( array(
-        'earn_rate'     => 1,       // Default earn_rate to 1
-        'post_id'       => false,   // Default
-        'format_value'  => true     // Default
-    ), $atts ) );
+    // extract( shortcode_atts( array(
+    //     'earn_rate'     => 1,       // Default earn_rate to 1
+    //     'post_id'       => false,   // Default
+    //     'format_value'  => true     // Default
+    // ), $atts ) );
     
     
-    // get value and return it
-    $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
+    // // get value and return it
+    // $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
     
-    $qantas = $rewards_program['qantas'];
+    // $qantas = $rewards_program['qantas'];
 
     $output = '<table style="width: 100%;">
                 <thead>
