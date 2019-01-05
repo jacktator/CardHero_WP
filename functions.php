@@ -208,7 +208,7 @@ function ch_generate_redemption_table( $atts ) {
             echo "WTF 4";
             echo $notes;
             echo "WTF 1";
-            $partner_program = the_sub_field('partner_program');
+            $partner_program = get_sub_field_object('partner_program');
             echo "WTF 1.5";
             echo $partner_program->ID;
         }
