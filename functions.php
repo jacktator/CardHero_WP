@@ -199,6 +199,11 @@ function ch_generate_redemption_table( $atts ) {
 
     $fields = get_field_objects();
 
+    $redemption_partners = $fields['redemption_partners']
+    echo $redemption_partners;
+
+    $fields = get_field_objects();
+
     if( $fields )
     {
         $table = '';
