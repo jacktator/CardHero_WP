@@ -112,13 +112,13 @@ add_shortcode( 'table', 'shortcode_acf_tablefield' );
 
 
 /*
-    Create shortcode for displaying CPT and ACF.
+    Create shortcode for displaying Effective Earn Rate Table using CPT and ACF.
     
     Author: Jacktator
     Plugin: Custom Post Type UI 1.6.1 
     Plugin: Advanced Custom Fields PRO 5.7.9
     Reference: https://wordpress.stackexchange.com/a/291525/134082
-    Usage: [ch_earn_table earn_rate="2"] // Meaning Earning 2 Credit Card Points per Dollar
+    Usage: [ch_effective_earn_table earn_rate="2"] // Meaning Earning 2 Credit Card Points per Dollar
 */
 function ch_generate_earn_table( $atts ) {
     
@@ -133,7 +133,74 @@ function ch_generate_earn_table( $atts ) {
     // // get value and return it
     $rewards_program = get_field( 'rewards_program');
 
-    $fields = get_field_objects($rewards_program->ID);
+    if ( $rewards_program ) {
+
+        $fields = get_field_objects($rewards_program->ID);
+        if( $fields ) {
+            $table = '';
+            // Construct Table Head
+            $table_head = '<table style="width: 100%;">
+                    <thead>
+                    <tr>
+                    <th>Partner</th>
+                    <th>Program</th>
+                    <th>Effective Earn Rate</th>
+                    </tr>
+                    </thead>';
+            $table .= $table_head;
+
+            // Construct Table Body
+            $table .= '<tbody>';
+            foreach( $fields as $field_name => $field )
+            {
+                $value = $field['value'];
+                if (is_numeric($value)) {
+                    $table .= '<tr>';
+                        $table .= '<td>' . $field['label'] . '</td>';
+                        $table .= '<td>' . $field['append'] . '</td>';
+                        if ($value === 0) {
+                            $table .= '<td>Not Available</td>';
+                        } else {
+                            $effective_earn_rate = $value * $earn_rate;
+                            $table .= '<td>' . $effective_earn_rate . ' ' . $field['append'] . '</td>';
+                        }
+                    $table .= '</tr>';
+                }
+            }
+
+            // Close Table
+            $table .= '</tbody></table>';
+
+            // Return Table
+            return $table;
+        } else {
+            return 'Fields is empty.';
+        }
+    } else {
+        return 'Rewards Program is empty.';
+    }
+}
+add_shortcode('ch_effective_earn_table', 'ch_generate_earn_table');
+
+
+/*
+    Create shortcode for displaying Redemption Table using CPT and ACF.
+    
+    Author: Jacktator
+    Plugin: Custom Post Type UI 1.6.1 
+    Plugin: Advanced Custom Fields PRO 5.7.9
+    Reference: https://wordpress.stackexchange.com/a/291525/134082
+    Usage: [ch_redemption_table] // Meaning Earning 2 Credit Card Points per Dollar
+*/
+function ch_generate_redemption_table( $atts ) {
+    
+    // extract attributs
+    extract( shortcode_atts( array(
+        'post_id'       => false,   // Default
+        'format_value'  => true     // Default
+    ), $atts ) );
+
+    $fields = get_fields();
     if( $fields )
     {
         $table = '';
@@ -176,6 +243,6 @@ function ch_generate_earn_table( $atts ) {
         return 'Fields is empty.';
     }
 }
-add_shortcode('ch_earn_table', 'ch_generate_earn_table');
+add_shortcode('ch_redemption_table', 'ch_generate_redemption_table');
 
 ?>
