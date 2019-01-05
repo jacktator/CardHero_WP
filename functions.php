@@ -241,7 +241,7 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '</tbody></table>';
 
         // Return Table
-        // return $table;
+        return $table;
     } else {
         return 'redemption_parnters is empty.';
     }
