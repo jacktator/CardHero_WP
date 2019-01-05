@@ -221,7 +221,7 @@ function ch_generate_redemption_table( $atts ) {
             $notes = get_sub_field('notes');
                     
             $company_id = $partner_program['ID'];
-            $company1 = $partner_program->['value'];
+            $company1 = $partner_program['value'];
             $company2 = $partner_program['company'];
             echo "<pre>";
             print_r($company1);
