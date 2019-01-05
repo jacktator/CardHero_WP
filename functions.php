@@ -140,7 +140,7 @@ function ch_generate_earn_table( $atts ) {
                 <tr>
                 <th>Partner</th>
                 <th>Program</th>
-                <th>Redemption Rate (Partner Program per Points)</th>
+                <th>Effective Earn Rate</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -206,7 +206,8 @@ function ch_generate_earn_table( $atts ) {
                 </tr>
                 </tbody>
                 </table>';
-    return $output;
+                
+    return $rewards_program;
 
     // array
     // if( is_array($value) ) {
