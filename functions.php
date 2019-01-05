@@ -141,9 +141,9 @@ function ch_generate_earn_table( $atts ) {
 
     echo '<pre>';
         print_r( $fields );
-        print_r( $qantas );
-        print_r( $qantas2 );
-        print_r( $qantas3 );
+        print_r( '0 ' . $qantas );
+        print_r( '1 ' $qantas2 );
+        print_r( '2 ' $qantas3 );
     echo '</pre>';
 
     // if( $post_object ) {
