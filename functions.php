@@ -134,11 +134,14 @@ function ch_generate_earn_table( $atts ) {
     $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
 
     $fields = get_fields($rewards_program->ID, $format_value);
+
+    $qantas = $fields->qantas
+    $qantas2 = $fields['qantas']
+
     echo '<pre>';
         print_r( $fields );
-        foreach( $fields as $name => $value) {
-            print_r( $name . ' : ' . $value );
-        }
+        print_r( $qantas );
+        print_r( $qantas2 );
     echo '</pre>';
 
     // if( $post_object ) {
