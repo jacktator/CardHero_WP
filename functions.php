@@ -198,7 +198,9 @@ function ch_generate_redemption_table( $atts ) {
     ), $atts ) );
 
     if(get_field('redemption_parnters')) {
+        echo "WTF 0";
         while (the_repeater_field('redemption_parnters')) {
+            echo "WTF 1";
             $partner_program = the_sub_field('partner_program');
             echo $partner_program;
             $redemption_rate = the_sub_field('redemption_rate');
@@ -246,7 +248,7 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '</tbody></table>';
 
         // Return Table
-        return $table;
+        // return $table;
     } else {
         return 'Fields is empty.';
     }
