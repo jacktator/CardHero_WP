@@ -229,6 +229,4 @@ function ch_generate_earn_table( $atts ) {
 
 add_shortcode('ch_earn_table', 'ch_generate_earn_table');
 
-[ch_earn_table]
-
 ?>
