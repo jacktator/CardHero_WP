@@ -129,7 +129,6 @@ function ch_generate_earn_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
     
-    
     // // get value and return it
     $rewards_program = get_field( 'rewards_program');
 
@@ -142,7 +141,6 @@ function ch_generate_earn_table( $atts ) {
             $table_head = '<table style="width: 100%;">
                     <thead>
                     <tr>
-                    <th>Partner</th>
                     <th>Program</th>
                     <th>Effective Earn Rate</th>
                     </tr>
@@ -154,10 +152,9 @@ function ch_generate_earn_table( $atts ) {
             foreach( $fields as $field_name => $field )
             {
                 $value = $field['value'];
-                if (is_numeric($value)) {
+                if (is_numeric($value) && $field['label'] !== 'Points Valuation') {
                     $table .= '<tr>';
                         $table .= '<td>' . $field['label'] . '</td>';
-                        $table .= '<td>' . $field['append'] . '</td>';
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
@@ -201,7 +198,7 @@ function ch_generate_redemption_table( $atts ) {
     ), $atts ) );
 
     $fields = get_field_objects();
-    
+
     if( $fields )
     {
         $table = '';
@@ -211,7 +208,7 @@ function ch_generate_redemption_table( $atts ) {
                 <tr>
                 <th>Partner</th>
                 <th>Program</th>
-                <th>Effective Earn Rate</th>
+                <th>Redemption Rate (1 point redeems for)</th>
                 </tr>
                 </thead>';
         $table .= $table_head;
@@ -221,15 +218,14 @@ function ch_generate_redemption_table( $atts ) {
         foreach( $fields as $field_name => $field )
         {
             $value = $field['value'];
-            if (is_numeric($value)) {
+                if (is_numeric($value) && $field['label'] !== 'Points Valuation') {
                 $table .= '<tr>';
                     $table .= '<td>' . $field['label'] . '</td>';
                     $table .= '<td>' . $field['append'] . '</td>';
                     if ($value === 0) {
                         $table .= '<td>Not Available</td>';
                     } else {
-                        $effective_earn_rate = $value * $earn_rate;
-                        $table .= '<td>' . $effective_earn_rate . ' ' . $field['append'] . '</td>';
+                        $table .= '<td>' . $value . ' ' . $field['append'] . '</td>';
                     }
                 $table .= '</tr>';
             }
