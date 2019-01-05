@@ -156,7 +156,7 @@ function ch_generate_earn_table( $atts ) {
                 echo '<tr>';
                     echo '<td>' . $field['label'] . '</td>';
                     echo '<td>' . $field['append'] . '</td>';
-                    if (if_zero($value)) {
+                    if ($value === 0) {
                         echo '<td>Not Available</td>';
                     } else {
                         $effective_earn_rate = $value * $earn_rate;
