@@ -200,13 +200,17 @@ function ch_generate_redemption_table( $atts ) {
     if(get_field('redemption_parnters')) {
         echo "WTF 0";
         while (the_repeater_field('redemption_parnters')) {
-            echo "WTF 1";
-            $partner_program = the_sub_field('partner_program');
-            echo $partner_program->ID;
+            echo "WTF 2";
             $redemption_rate = the_sub_field('redemption_rate');
+            echo "WTF 3";
             echo $redemption_rate;
             $notes = the_sub_field('notes');
+            echo "WTF 4";
             echo $notes;
+            echo "WTF 1";
+            $partner_program = the_sub_field('partner_program');
+            echo "WTF 1.5";
+            echo $partner_program->ID;
         }
     }
 
