@@ -216,7 +216,7 @@ function ch_generate_redemption_table( $atts ) {
         while (have_rows('redemption_parnters')) {
 
             the_row();
-            
+
             $partner_program = get_sub_field_object('partner_program');
             $partner_program_fields = get_field_objects($partner_program->ID);
             $partner_program_company = get_field('company', $partner_program->ID);
@@ -233,7 +233,7 @@ function ch_generate_redemption_table( $atts ) {
                 echo $partner_program_program;
                 echo $partner_program_unit;
                 echo $partner_program_points_value;
-                // print_r($partner_program_fields);
+                print_r($partner_program);
             echo "</pre>";
 
             $table .= '<tr>';
@@ -242,7 +242,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '. ' . $notes . '</td>';
+                    $table .= '<td> 1 ' . the_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program->unit . '. ' . $notes . '</td>';
                 }
             $table .= '</tr>';
         }
