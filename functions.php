@@ -227,22 +227,13 @@ function ch_generate_redemption_table( $atts ) {
             $redemption_rate = get_sub_field('redemption_rate');
             $notes = get_sub_field('notes');
 
-            echo "<pre>";
-                echo "partner_program: " . $partner_program->ID;
-                echo $partner_program_company;
-                echo $partner_program_program;
-                echo $partner_program_unit;
-                echo $partner_program_points_value;
-                print_r($partner_program);
-            echo "</pre>";
-
             $table .= '<tr>';
-                $table .= '<td>' . $partner_program->company . '</td>';
-                $table .= '<td>' . $partner_program->program . '</td>';
+                $table .= '<td>' . $partner_program_company . '</td>';
+                $table .= '<td>' . $partner_program_program . '</td>';
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . the_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program->unit . '. ' . $notes . '</td>';
+                    $table .= '<td> 1 ' . get_field('unit') . ' = ' . $redemption_rate . ' ' . $partner_program_unit . '. ' . $notes . '</td>';
                 }
             $table .= '</tr>';
         }
