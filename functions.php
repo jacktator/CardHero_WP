@@ -138,7 +138,7 @@ function ch_generate_earn_table( $atts ) {
         $program = $rewards_program;
         setup_postdata( $program ); 
 
-        $qantas = the_field('qantas')
+        $qantas = the_field('qantas');
     return $qantas;
 
         wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly 
