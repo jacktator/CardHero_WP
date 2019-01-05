@@ -130,7 +130,7 @@ function ch_generate_earn_table( $atts ) {
     ), $atts ) );
     
     // // get value and return it
-    $rewards_program = get_field( 'rewards_program');
+    $rewards_program = get_field( 'rewards_program' );
 
     if ( $rewards_program ) {
 
@@ -217,15 +217,17 @@ function ch_generate_redemption_table( $atts ) {
         while (the_repeater_field('redemption_parnters')) {
 
             $partner_program = get_sub_field_object('partner_program');
+            $partner_program_fields = get_field_objects($partner_program->ID);
+
             $redemption_rate = get_sub_field('redemption_rate');
             $notes = get_sub_field('notes');
-                    
-            $company_id = $partner_program['ID'];
-            $company1 = $partner_program['value'];
-            $company2 = $partner_program['company'];
+
             echo "<pre>";
-            print_r($company1);
-            echo "<br/>company_id 1: " . $company_id;
+                print_r($partner_program_fields['unit']);
+                print_r($partner_program_fields['company']);
+                print_r($partner_program_fields['program']);
+                print_r($partner_program_fields['points_value']);
+                print_r($partner_program_fields);
             echo "</pre>";
 
             $table .= '<tr>';
@@ -234,7 +236,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '<br/>' . $notes . '</td>';
+                    $table .= '<td>' . $redemption_rate . ' ' . $partner_program->unit . '. ' . $notes . '</td>';
                 }
             $table .= '</tr>';
         }
