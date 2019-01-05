@@ -123,11 +123,11 @@ add_shortcode( 'table', 'shortcode_acf_tablefield' );
 function ch_generate_earn_table( $atts ) {
     
     // extract attributs
-    // extract( shortcode_atts( array(
-    //     'earn_rate'     => 1,       // Default earn_rate to 1
-    //     'post_id'       => false,   // Default
-    //     'format_value'  => true     // Default
-    // ), $atts ) );
+    extract( shortcode_atts( array(
+        'earn_rate'     => 1,       // Default earn_rate to 1
+        'post_id'       => false,   // Default
+        'format_value'  => true     // Default
+    ), $atts ) );
     
     
     // // get value and return it
