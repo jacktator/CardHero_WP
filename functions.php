@@ -133,32 +133,26 @@ function ch_generate_earn_table( $atts ) {
     // // get value and return it
     $rewards_program = get_field( 'rewards_program', $post_id, $format_value );
 
-    $fields = get_fields($rewards_program->ID, $format_value);
-
     $velocity = $fields['velocity'];
     $velocity = $velocity * $earn_rate;
 
-    echo '<pre>';
-        print_r( 'Orig ' . $velocity );
-        $velocity = $velocity * $earn_rate;
-        print_r( ', Calculated ' . $velocity );
-    echo '</pre>';
-
-    foreach( $fields as $name => $value ) {
-        print_r( $name . ' A：A ' . $value );
-    }
-
-    $fieldss = get_field_objects($rewards_program->ID);
-if( $fieldss )
-{
-    foreach( $fieldss as $field_name => $field )
+    $fields = get_field_objects($rewards_program->ID);
+    if( $fields )
     {
-        echo '<div>';
-            echo '<h3>' . $field['label'] . '</h3>';
-            echo $field['value'];
-        echo '</div>';
+        foreach( $fields as $field_name => $field )
+        {
+            echo '<div>';
+                echo '<h3>' . $field['label'] . '</h3>';
+                echo $field['value'];
+                echo '<br/>name: ' . $field['name'];
+                echo '<br/>key: ' . $field['key'];
+                echo '<br/>prefix: ' . $field['prefix'];
+                echo '<br/>append: ' . $field['append'];
+                echo '<br/>prepend: ' . $field['prepend'];
+                echo '<br/>field_name: ' . $field_name;
+            echo '</div>';
+        }
     }
-}
 
     // if( $post_object ) {
     //     // override $post
@@ -180,7 +174,9 @@ if( $fieldss )
                 <th>Program</th>
                 <th>Effective Earn Rate</th>
                 </tr>
-                </thead>
+                </thead>'
+                .
+                '
                 <tbody>
                 <tr>
                 <td>Qantas</td>
