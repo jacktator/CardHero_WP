@@ -136,12 +136,29 @@ function ch_generate_earn_table( $atts ) {
     $fields = get_fields($rewards_program->ID, $format_value);
 
     $velocity = $fields['velocity'];
+    $velocity = $velocity * $earn_rate;
 
     echo '<pre>';
         print_r( 'Orig ' . $velocity );
         $velocity = $velocity * $earn_rate;
         print_r( ', Calculated ' . $velocity );
     echo '</pre>';
+
+    foreach( $fields as $name => $value ) {
+        print_r( $name . ' A：A ' . $value );
+    }
+
+    $fieldss = get_field_objects($rewards_program->ID);
+if( $fieldss )
+{
+    foreach( $fieldss as $field_name => $field )
+    {
+        echo '<div>';
+            echo '<h3>' . $field['label'] . '</h3>';
+            echo $field['value'];
+        echo '</div>';
+    }
+}
 
     // if( $post_object ) {
     //     // override $post
