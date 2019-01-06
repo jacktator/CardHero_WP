@@ -205,6 +205,10 @@ function ch_generate_redemption_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
 
+    // Store Flexible Points for Second Tier Table
+    $flexible_partner_programs = array();
+    $excluding_partner_programs = array();
+
     if (have_rows('redemption_parnters')) {
         $table = '';
         // Construct Table Head
@@ -218,7 +222,7 @@ function ch_generate_redemption_table( $atts ) {
                 </thead>';
         $table .= $table_head;
 
-        // Construct Table Body
+        // Construct Primary Table Body
         $table .= '<tbody>';
 
         while (have_rows('redemption_parnters')) {
@@ -248,67 +252,25 @@ function ch_generate_redemption_table( $atts ) {
                 }
             $table .= '</tr>';
 
-            // Check 2nd Tier Redemption
-            echo "<pre>";
-                print_r($flexible_points_currency);
-            echo "</pre>";
+            // Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+            $excluding_partner_programs .= $partner_program_program;
+
+            // Add Flexible Points Program to Array
             if ( $flexible_points_currency ) {
-                if (have_rows('redemption_parnters')) {
-            echo "<pre>";
-                echo "Test 0";
-            echo "</pre>";
-                    while (have_rows('redemption_parnters')) {
-            echo "<pre>";
-                echo "Test 1";
-            echo "</pre>";
-
-                        // Render 2nd Tier Redemption
-
-                        the_row();
-
-            echo "<pre>";
-                echo "Test 2";
-            echo "</pre>";
-
-                        $second_tier_partner_program = get_sub_field('partner_program');
-                        $second_tier_partner_program_fields = get_field_objects($partner_program->ID);
-                        $second_tier_partner_program_company = get_field('company', $partner_program->ID);
-                        $second_tier_partner_program_program = get_field('program', $partner_program->ID);
-                        $second_tier_partner_program_unit = get_field('unit', $partner_program->ID);
-                        $second_tier_partner_program_points_value = get_field('points_value', $partner_program->ID);
-
-            echo "<pre>";
-                echo "Test 3";
-            echo "</pre>";
-                        $second_tier_redemption_rate = get_sub_field('redemption_rate');
-                        $second_tier_notes = get_sub_field('notes');
-
-            echo "<pre>";
-                echo "Test 4";
-            echo "</pre>";
-                        $table .= '<tr>';
-                            $table .= '<td>' . $second_tier_partner_program_company . '</td>';
-                            $table .= '<td>' . $second_tier_partner_program_program . '</td>';
-                            if ($value === 0) {
-                                $table .= '<td>Not Available</td>';
-                            } else {
-                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $second_tier_notes . '</small></td>';
-                            }
-                        $table .= '</tr>';
-
-                        // Check 3rd Tier Redemption
-                        // $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-
-                        // if ( $flexible_points_currency ) {
-
-                        // }
-                    }
-                }
+                $flexible_partner_programs .= $partner_program;
             }
         }
+        $table .= '</tbody>';
+
+        // Construct Secondary Table Body
+        $table .= '<tbody>';
+        foreach ($variable as $key => $value) {
+            # TODO: code...
+        }
+        $table .= '</tbody>';
 
         // Close Table
-        $table .= '</tbody></table>';
+        $table .= '</table>';
 
         // Return Table
         return $table;
