@@ -250,7 +250,7 @@ function ch_generate_redemption_table( $atts ) {
             // Check 2nd Tier Redemption
             $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
             echo "<pre>";
-                print_r("$flexible_points_currency " . $flexible_points_currency);
+                print_r($flexible_points_currency);
             echo "</pre>";
             if ( $flexible_points_currency ) {
                 if (have_rows('redemption_parnters')) {
