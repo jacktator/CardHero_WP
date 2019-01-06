@@ -223,6 +223,8 @@ function ch_generate_redemption_table( $atts ) {
 
         while (have_rows('redemption_parnters')) {
 
+            // Render Redemption
+
             the_row();
 
             $partner_program = get_sub_field('partner_program');
@@ -244,6 +246,49 @@ function ch_generate_redemption_table( $atts ) {
                     $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
+
+            // Check 2nd Tier Redemption
+            $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+
+
+            if ( $flexible_points_currency ) {
+                if (have_rows('redemption_parnters')) {
+
+                    while (have_rows('redemption_parnters')) {
+
+                        // Render 2nd Tier Redemption
+
+                        the_row();
+
+                        $child_partner_program = get_sub_field('partner_program');
+                        $child_partner_program_fields = get_field_objects($partner_program->ID);
+                        $child_partner_program_company = get_field('company', $partner_program->ID);
+                        $child_partner_program_program = get_field('program', $partner_program->ID);
+                        $child_partner_program_unit = get_field('unit', $partner_program->ID);
+                        $child_partner_program_points_value = get_field('points_value', $partner_program->ID);
+
+                        $child_redemption_rate = get_sub_field('redemption_rate');
+                        $child_notes = get_sub_field('notes');
+
+                        $table .= '<tr>';
+                            $table .= '<td>' . $child_partner_program_company . '</td>';
+                            $table .= '<td>' . $child_partner_program_program . '</td>';
+                            if ($value === 0) {
+                                $table .= '<td>Not Available</td>';
+                            } else {
+                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $child_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $child_notes . '</small></td>';
+                            }
+                        $table .= '</tr>';
+
+                        // Check 3rd Tier Redemption
+                        // $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+
+                        // if ( $flexible_points_currency ) {
+
+                        // }
+                    }
+                }
+            }
         }
 
         // Close Table
