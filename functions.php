@@ -232,6 +232,7 @@ function ch_generate_redemption_table( $atts ) {
             $partner_program_company = get_field('company', $partner_program->ID);
             $partner_program_program = get_field('program', $partner_program->ID);
             $partner_program_unit = get_field('unit', $partner_program->ID);
+            $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
             $partner_program_points_value = get_field('points_value', $partner_program->ID);
 
             $redemption_rate = get_sub_field('redemption_rate');
@@ -248,7 +249,6 @@ function ch_generate_redemption_table( $atts ) {
             $table .= '</tr>';
 
             // Check 2nd Tier Redemption
-            $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
             echo "<pre>";
                 print_r($flexible_points_currency);
             echo "</pre>";
