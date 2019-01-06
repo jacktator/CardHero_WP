@@ -244,7 +244,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+                    $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' ?:' . $partner_program_points_value . ' . '. '</small></td>';
                 }
             $table .= '</tr>';
 
@@ -269,7 +269,7 @@ function ch_generate_redemption_table( $atts ) {
             echo "<pre>";
                 echo "Test 2";
             echo "</pre>";
-            
+
                         $second_tier_partner_program = get_sub_field('partner_program');
                         $second_tier_partner_program_fields = get_field_objects($partner_program->ID);
                         $second_tier_partner_program_company = get_field('company', $partner_program->ID);
