@@ -249,34 +249,49 @@ function ch_generate_redemption_table( $atts ) {
 
             // Check 2nd Tier Redemption
             $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-
-
+            echo "<pre>";
+                print_r("$flexible_points_currency " . $flexible_points_currency);
+            echo "</pre>";
             if ( $flexible_points_currency ) {
                 if (have_rows('redemption_parnters')) {
-
+            echo "<pre>";
+                echo "Test 0";
+            echo "</pre>";
                     while (have_rows('redemption_parnters')) {
+            echo "<pre>";
+                echo "Test 1";
+            echo "</pre>";
 
                         // Render 2nd Tier Redemption
 
                         the_row();
 
-                        $child_partner_program = get_sub_field('partner_program');
-                        $child_partner_program_fields = get_field_objects($partner_program->ID);
-                        $child_partner_program_company = get_field('company', $partner_program->ID);
-                        $child_partner_program_program = get_field('program', $partner_program->ID);
-                        $child_partner_program_unit = get_field('unit', $partner_program->ID);
-                        $child_partner_program_points_value = get_field('points_value', $partner_program->ID);
+            echo "<pre>";
+                echo "Test 2";
+            echo "</pre>";
+                        $2nd_partner_program = get_sub_field('partner_program');
+                        $2nd_partner_program_fields = get_field_objects($partner_program->ID);
+                        $2nd_partner_program_company = get_field('company', $partner_program->ID);
+                        $2nd_partner_program_program = get_field('program', $partner_program->ID);
+                        $2nd_partner_program_unit = get_field('unit', $partner_program->ID);
+                        $2nd_partner_program_points_value = get_field('points_value', $partner_program->ID);
 
-                        $child_redemption_rate = get_sub_field('redemption_rate');
-                        $child_notes = get_sub_field('notes');
+            echo "<pre>";
+                echo "Test 3";
+            echo "</pre>";
+                        $2nd_redemption_rate = get_sub_field('redemption_rate');
+                        $2nd_notes = get_sub_field('notes');
 
+            echo "<pre>";
+                echo "Test 4";
+            echo "</pre>";
                         $table .= '<tr>';
-                            $table .= '<td>' . $child_partner_program_company . '</td>';
-                            $table .= '<td>' . $child_partner_program_program . '</td>';
+                            $table .= '<td>' . $2nd_partner_program_company . '</td>';
+                            $table .= '<td>' . $2nd_partner_program_program . '</td>';
                             if ($value === 0) {
                                 $table .= '<td>Not Available</td>';
                             } else {
-                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $child_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $child_notes . '</small></td>';
+                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $2nd_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $2nd_notes . '</small></td>';
                             }
                         $table .= '</tr>';
 
