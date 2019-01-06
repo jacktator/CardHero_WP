@@ -263,11 +263,11 @@ function ch_generate_redemption_table( $atts ) {
         $table .= '</tbody>';
 
         // Construct Secondary Table Body
-        $table .= '<tbody>';
-        foreach ($variable as $key => $value) {
-            # TODO: code...
-        }
-        $table .= '</tbody>';
+        // $table .= '<tbody>';
+        // foreach ($variable as $key => $value) {
+        //     # TODO: code...
+        // }
+        // $table .= '</tbody>';
 
         // Close Table
         $table .= '</table>';
