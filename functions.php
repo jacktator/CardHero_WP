@@ -269,29 +269,30 @@ function ch_generate_redemption_table( $atts ) {
             echo "<pre>";
                 echo "Test 2";
             echo "</pre>";
-                        $2nd_partner_program = get_sub_field('partner_program');
-                        $2nd_partner_program_fields = get_field_objects($partner_program->ID);
-                        $2nd_partner_program_company = get_field('company', $partner_program->ID);
-                        $2nd_partner_program_program = get_field('program', $partner_program->ID);
-                        $2nd_partner_program_unit = get_field('unit', $partner_program->ID);
-                        $2nd_partner_program_points_value = get_field('points_value', $partner_program->ID);
+            
+                        $second_tier_partner_program = get_sub_field('partner_program');
+                        $second_tier_partner_program_fields = get_field_objects($partner_program->ID);
+                        $second_tier_partner_program_company = get_field('company', $partner_program->ID);
+                        $second_tier_partner_program_program = get_field('program', $partner_program->ID);
+                        $second_tier_partner_program_unit = get_field('unit', $partner_program->ID);
+                        $second_tier_partner_program_points_value = get_field('points_value', $partner_program->ID);
 
             echo "<pre>";
                 echo "Test 3";
             echo "</pre>";
-                        $2nd_redemption_rate = get_sub_field('redemption_rate');
-                        $2nd_notes = get_sub_field('notes');
+                        $second_tier_redemption_rate = get_sub_field('redemption_rate');
+                        $second_tier_notes = get_sub_field('notes');
 
             echo "<pre>";
                 echo "Test 4";
             echo "</pre>";
                         $table .= '<tr>';
-                            $table .= '<td>' . $2nd_partner_program_company . '</td>';
-                            $table .= '<td>' . $2nd_partner_program_program . '</td>';
+                            $table .= '<td>' . $second_tier_partner_program_company . '</td>';
+                            $table .= '<td>' . $second_tier_partner_program_program . '</td>';
                             if ($value === 0) {
                                 $table .= '<td>Not Available</td>';
                             } else {
-                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $2nd_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $2nd_notes . '</small></td>';
+                                $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> (Via' . $partner_program_program . ') <br/><small>' . $second_tier_notes . '</small></td>';
                             }
                         $table .= '</tr>';
 
