@@ -173,7 +173,7 @@ function ch_generate_earn_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> $1 earns <strong>' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+                    $table .= '<td> $1 earns <strong>' . $earn_rate * $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
 
