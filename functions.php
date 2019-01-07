@@ -253,11 +253,11 @@ function ch_generate_redemption_table( $atts ) {
             $table .= '</tr>';
 
             // Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
-            $excluding_partner_programs .= $partner_program_program;
+            array_push($excluding_partner_programs, $partner_program_program);
 
             // Add Flexible Points Program to Array
             if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
-                $flexible_partner_programs .= $partner_program;
+                array_push($flexible_partner_programs, $partner_rogram);
             }
         }
         $table .= '</tbody>';
