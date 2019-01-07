@@ -275,7 +275,7 @@ function ch_generate_redemption_table( $atts ) {
             $table .= '
                 <thead>
                 <tr>
-                <th colspan="2"> Reward Program via ' . $flexible_partner_program_program . ' </th>
+                <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' ' . $flexible_partner_program_program . ' </th>
                 <th> Effective Redemption Rate</th>
                 </tr>
                 </thead>';
