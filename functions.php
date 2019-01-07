@@ -173,7 +173,7 @@ function ch_generate_earn_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> $1 earns <strong>' . $earn_rate * $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+                    $table .= '<td> $1 earns <strong>' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
 
@@ -229,7 +229,7 @@ function ch_generate_earn_table( $atts ) {
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
-                            $table .= '<td> $1 earns <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+                            $table .= '<td> $1 earns <strong>' . $redemption_rate * $second_tier_redemption_rate * $earn_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
                         }
                     $table .= '</tr>';
 
