@@ -262,13 +262,23 @@ function ch_generate_redemption_table( $atts ) {
         }
         $table .= '</tbody>';
 
+            echo "<pre>";
+            echo "TEST 0";
+            echo "</pre>";
+
         // Construct Secondary Table Body
         foreach ($flexible_partner_programs as $flexible_partner_program) {
             // Construct Primary Table Body
             $table .= '<tbody>';
 
+            echo "<pre>";
+            echo "TEST 1";
+            echo "</pre>";
             while (have_rows('redemption_parnters', $flexible_partner_program->ID)) {
 
+            echo "<pre>";
+            echo "TEST 2";
+            echo "</pre>";
                 // Render Redemption
 
                 the_row();
@@ -281,9 +291,15 @@ function ch_generate_redemption_table( $atts ) {
                 $second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
                 $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
 
+            echo "<pre>";
+            echo "TEST 3";
+            echo "</pre>";
                 // Only Add new partner in second tier redemption
                 if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
 
+            echo "<pre>";
+            echo "TEST 4";
+            echo "</pre>";
                     $second_tier_redemption_rate = get_sub_field('redemption_rate');
                     $second_tier_notes = get_sub_field('notes');
 
