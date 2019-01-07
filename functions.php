@@ -266,8 +266,18 @@ function ch_generate_redemption_table( $atts ) {
         }
         $table .= '</tbody>';
 
+        echo "<pre>";
+        echo "Array: ";
+        print_r($flexible_partner_programs);
+        echo "</pre>";
+
         // Construct Secondary Table Body
         foreach ($flexible_partner_programs as $flexible_partner_program) {
+
+        echo "<pre>";
+        echo "Value: ";
+        print_r($flexible_partner_program);
+        echo "</pre>";
 
             // Construct Primary Table Body
             $table .= '<tbody>';
