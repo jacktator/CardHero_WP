@@ -134,6 +134,10 @@ function ch_generate_earn_table( $atts ) {
 
     if ( $rewards_program ) {
 
+    // Store Flexible Points for Second Tier Table
+    $flexible_partner_programs = array();
+    $excluding_partner_programs = array();
+
     if (have_rows('redemption_parnters', $rewards_program->ID)) {
         $table = '';
         // Construct Table Head
@@ -171,6 +175,73 @@ function ch_generate_earn_table( $atts ) {
                     $table .= '<td> $1 earns <strong>' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
                 }
             $table .= '</tr>';
+
+            // Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+            array_push($excluding_partner_programs, $partner_program_program);
+
+            // Add Flexible Points Program to Array
+            if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
+
+                array_push($flexible_partner_programs, $partner_program);
+            }
+        }
+
+        // Construct Secondary Table Body
+        foreach ($flexible_partner_programs as $flexible_partner_program) {
+
+            $flexible_partner_program_company = get_field('company', $flexible_partner_program->ID);
+            $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID);
+
+            // Construct Secondary Table Head
+            $table .= '
+                <thead>
+                <tr>
+                <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' ' . $flexible_partner_program_program . ' </th>
+                </tr>
+                </thead>';
+
+            // Construct Secondary Table Body
+            $table .= '<tbody>';
+
+            while (have_rows('redemption_parnters', $flexible_partner_program->ID)) {
+
+                // Render Redemption
+
+                the_row();
+
+                $second_tier_partner_program = get_sub_field('partner_program');
+                $second_tier_partner_program_fields = get_field_objects($second_tier_partner_program->ID);
+                $second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID);
+                $second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID);
+                $second_tier_partner_program_unit = get_field('unit', $second_tier_partner_program->ID);
+                $second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
+                $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
+
+                // Only Add new partner in second tier redemption
+                // if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
+
+                    $second_tier_redemption_rate = get_sub_field('redemption_rate');
+                    $second_tier_notes = get_sub_field('notes');
+
+                    $table .= '<tr>';
+                        $table .= '<td>' . $second_tier_partner_program_program . '</td>';
+                        if ($value === 0) {
+                            $table .= '<td>Not Available</td>';
+                        } else {
+                            $table .= '<td> $1 earns <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+                        }
+                    $table .= '</tr>';
+
+                    // DO NOT add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+                    // array_push($excluding_partner_programs, $flexible_partner_program);
+
+                    // Add Flexible Points Program to Array
+                    if ( !in_array($flexible_partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
+                        array_push($flexible_partner_programs, $partner_program);
+                    }
+                // }
+            }
+            $table .= '</tbody>';
         }
 
         // Close Table
