@@ -304,12 +304,12 @@ function ch_generate_redemption_table( $atts ) {
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
-                            $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . ' (Via '. $flexible_partner_program_program . ').</strong> <br/><small>' . $partner_program_program . '1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $flexible_partner_program_program . '1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+                            $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . ' (Via '. $flexible_partner_program_program . ').</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
                         }
                     $table .= '</tr>';
 
-                    // Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
-                    array_push($excluding_partner_programs, $flexible_partner_program);
+                    // DO NOT add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+                    // array_push($excluding_partner_programs, $flexible_partner_program);
 
                     // Add Flexible Points Program to Array
                     if ( !in_array($flexible_partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
