@@ -205,6 +205,8 @@ function ch_generate_redemption_table( $atts ) {
         'format_value'  => true     // Default
     ), $atts ) );
 
+    $base_unit = get_field('unit');
+
     // Store Flexible Points for Second Tier Table
     $flexible_partner_programs = array();
     $excluding_partner_programs = array();
@@ -248,7 +250,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' ?:' . $partner_program_points_value . ' . '. '</small></td>';
+                    $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' ?:' . $partner_program_points_value . ' . '. '</small></td>';
                 }
             $table .= '</tr>';
 
@@ -302,7 +304,7 @@ function ch_generate_redemption_table( $atts ) {
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
-                            $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . ' (Via '. $flexible_partner_program_program . ').</strong> <br/><small>' . $partner_program_program . ': ' . $notes . '<br/>' . $flexible_partner_program_program . ': ' . $second_tier_notes . '.</small></td>';
+                            $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . ' (Via '. $flexible_partner_program_program . ').</strong> <br/><small>' . $partner_program_program . '1: ' $redemption_rate. ' (' . $notes . ').<br/>' . $flexible_partner_program_program . '1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
                         }
                     $table .= '</tr>';
 
