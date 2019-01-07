@@ -258,8 +258,7 @@ function ch_generate_redemption_table( $atts ) {
             array_push($excluding_partner_programs, $partner_program_program);
 
             // Add Flexible Points Program to Array
-            // if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
-            if ( $flexible_points_currency ) {
+            if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
 
                 array_push($flexible_partner_programs, $partner_program);
             }
@@ -299,7 +298,7 @@ function ch_generate_redemption_table( $atts ) {
                 $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
 
                 // Only Add new partner in second tier redemption
-                if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
+                // if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
 
                     $second_tier_redemption_rate = get_sub_field('redemption_rate');
                     $second_tier_notes = get_sub_field('notes');
@@ -321,7 +320,7 @@ function ch_generate_redemption_table( $atts ) {
                     if ( !in_array($flexible_partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
                         array_push($flexible_partner_programs, $partner_program);
                     }
-                }
+                // }
             }
             $table .= '</tbody>';
         }
