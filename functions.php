@@ -259,7 +259,7 @@ function ch_generate_redemption_table( $atts ) {
             if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
 
                 echo "<pre>";
-                echo "Pushed: " . $partner_program_program;
+                echo "Pushed: " . $partner_program_program . $partner_rogram->ID;
                 echo "</pre>";
                 array_push($flexible_partner_programs, $partner_rogram);
             }
@@ -269,12 +269,12 @@ function ch_generate_redemption_table( $atts ) {
         // Construct Secondary Table Body
         foreach ($flexible_partner_programs as $flexible_partner_program) {
 
-            echo "<pre>";
-            echo "TEST 0";
-            echo "</pre>";
-
             // Construct Primary Table Body
             $table .= '<tbody>';
+
+            echo "<pre>";
+            echo "Fetching: " . $flexible_partner_program->ID;
+            echo "</pre>";
 
             while (have_rows('redemption_parnters', $flexible_partner_program->ID)) {
 
