@@ -258,7 +258,8 @@ function ch_generate_redemption_table( $atts ) {
             array_push($excluding_partner_programs, $partner_program_program);
 
             // Add Flexible Points Program to Array
-            if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
+            // if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
+            if ( $flexible_points_currency ) {
 
                 array_push($flexible_partner_programs, $partner_program);
             }
