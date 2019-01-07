@@ -270,7 +270,7 @@ function ch_generate_redemption_table( $atts ) {
 
             $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID);
 
-            // Construct Primary Table Body
+            // Construct Secondary Table Head
             $table .= '
                 <thead>
                 <tr>
@@ -279,6 +279,8 @@ function ch_generate_redemption_table( $atts ) {
                 <th> Effective Redemption Rate</th>
                 </tr>
                 </thead>';
+
+            // Construct Secondary Table Body
             $table .= '<tbody>';
 
             while (have_rows('redemption_parnters', $flexible_partner_program->ID)) {
