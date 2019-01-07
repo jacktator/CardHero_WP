@@ -250,7 +250,7 @@ function ch_generate_redemption_table( $atts ) {
                 if ($value === 0) {
                     $table .= '<td>Not Available</td>';
                 } else {
-                    $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' ?:' . $partner_program_points_value . ' . '. '</small></td>';
+                    $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' . '. '</small></td>';
                 }
             $table .= '</tr>';
 
@@ -268,13 +268,22 @@ function ch_generate_redemption_table( $atts ) {
         // Construct Secondary Table Body
         foreach ($flexible_partner_programs as $flexible_partner_program) {
 
+            $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID);
+
             // Construct Primary Table Body
+            $table .= '
+                <thead>
+                <tr>
+                <th> Program via ' . $flexible_partner_program_program . ' </th>
+                <th> Reward Program </th>
+                <th> Effective Redemption Rate</th>
+                </tr>
+                </thead>';
             $table .= '<tbody>';
 
             while (have_rows('redemption_parnters', $flexible_partner_program->ID)) {
 
                 // Render Redemption
-                $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID);
 
                 the_row();
 
@@ -286,12 +295,6 @@ function ch_generate_redemption_table( $atts ) {
                 $second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
                 $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
 
-            echo "<pre>";
-            echo "Flexible: ";
-            print_r($flexible_partner_program_program);
-            echo "Second_Teir: ";
-            echo '->' . $second_tier_partner_program_program;
-            echo "</pre>";
                 // Only Add new partner in second tier redemption
                 if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
 
@@ -304,7 +307,7 @@ function ch_generate_redemption_table( $atts ) {
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
-                            $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . ' (Via '. $flexible_partner_program_program . ').</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+                            $table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
                         }
                     $table .= '</tr>';
 
