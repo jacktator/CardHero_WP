@@ -273,27 +273,27 @@ function ch_generate_redemption_table( $atts ) {
 
                 the_row();
 
-                $partner_program = get_sub_field('partner_program');
-                $partner_program_fields = get_field_objects($flexible_partner_program->ID);
-                $partner_program_company = get_field('company', $flexible_partner_program->ID);
-                $partner_program_program = get_field('program', $flexible_partner_program->ID);
-                $partner_program_unit = get_field('unit', $flexible_partner_program->ID);
-                $flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-                $partner_program_points_value = get_field('points_value', $flexible_partner_program->ID);
+                $second_tier_partner_program = get_sub_field('partner_program');
+                $second_tier_partner_program_fields = get_field_objects($second_tier_partner_program->ID);
+                $second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID);
+                $second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID);
+                $second_tier_partner_program_unit = get_field('unit', $second_tier_partner_program->ID);
+                $second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
+                $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
 
                 // Only Add new partner in second tier redemption
-                if (!in_array($partner_program_program, $excluding_partner_programs)) {
+                if (!in_array($second_tier_partner_program_program, $excluding_partner_programs)) {
 
-                    $redemption_rate = get_sub_field('redemption_rate');
-                    $notes = get_sub_field('notes');
+                    $second_tier_redemption_rate = get_sub_field('redemption_rate');
+                    $second_tier_notes = get_sub_field('notes');
 
                     $table .= '<tr>';
-                        $table .= '<td>' . $partner_program_company . '</td>';
-                        $table .= '<td>' . $partner_program_program . '</td>';
+                        $table .= '<td>' . $second_tier_partner_program_company . '</td>';
+                        $table .= '<td>' . $second_tier_partner_program_program . '</td>';
                         if ($value === 0) {
                             $table .= '<td>Not Available</td>';
                         } else {
-                            $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>(Via )' . $flexible_partner_program->program . " " . $notes . ' ?:' . $partner_program_points_value . ' . '. '</small></td>';
+                            $table .= '<td> 1 ' . get_field('unit') . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>(Via )' . $flexible_partner_program->ID . " " . $notes . '. '. '</small></td>';
                         }
                     $table .= '</tr>';
 
