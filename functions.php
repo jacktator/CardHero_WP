@@ -259,9 +259,9 @@ function ch_generate_redemption_table( $atts ) {
             if ( !in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency ) {
 
                 echo "<pre>";
-                echo "Pushed: " . $partner_program_program . $partner_rogram->ID;
+                echo "Pushed: " . $partner_program_program . $partner_program->ID;
                 echo "</pre>";
-                array_push($flexible_partner_programs, $partner_rogram);
+                array_push($flexible_partner_programs, $partner_program);
             }
         }
         $table .= '</tbody>';
