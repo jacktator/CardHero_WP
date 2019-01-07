@@ -268,14 +268,14 @@ function ch_generate_redemption_table( $atts ) {
         // Construct Secondary Table Body
         foreach ($flexible_partner_programs as $flexible_partner_program) {
 
+            $flexible_partner_program_company = get_field('company', $flexible_partner_program->ID);
             $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID);
 
             // Construct Secondary Table Head
             $table .= '
                 <thead>
                 <tr>
-                <th> Program via ' . $flexible_partner_program_program . ' </th>
-                <th> Reward Program </th>
+                <th colspan="2"> Reward Program via ' . $flexible_partner_program_program . ' </th>
                 <th> Effective Redemption Rate</th>
                 </tr>
                 </thead>';
