@@ -173,7 +173,7 @@ function ch_generate_earn_table($atts) {
 				$notes = get_sub_field('notes');
 
 				$table .= '<tr>';
-				$table .= '<td>' . $partner_program_company . ' ' . $partner_program_program . '</td>';
+				$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
 				if ($value === 0) {
 					$table .= '<td>Not Available</td>';
 				} else {
@@ -194,8 +194,14 @@ function ch_generate_earn_table($atts) {
 			// Construct Secondary Table Body
 			// foreach ($flexible_partner_programs as $flexible_partner_program) {
 
-			//     $flexible_partner_program_company = get_field('company', $flexible_partner_program->ID); // Deprecated
-			//     $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID); // Deprecated
+			// $flexible_partner_program_company = get_field('company', $flexible_partner_program->ID); // Deprecated, use get_field('provider'); instead.
+			// if (!$flexible_partner_program_company) {
+			// 	$flexible_partner_program_company = get_field('provider', $flexible_partner_program->ID)->post_title;
+			// }
+			// $flexible_partner_program_program = get_field('program', $flexible_partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+			// if (!$flexible_partner_program_program) {
+			// 	$flexible_partner_program_program = $flexible_partner_program->post_title;
+			// }
 
 			//     // Construct Secondary Table Head
 			//     $table .= '
@@ -216,8 +222,14 @@ function ch_generate_earn_table($atts) {
 
 			//         $second_tier_partner_program = get_sub_field('partner_program');
 			//         $second_tier_partner_program_fields = get_field_objects($second_tier_partner_program->ID);
-			//         $second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID); // Deprecated
-			//         $second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID); // Deprecated
+			// $second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID); // Deprecated, use get_field('provider'); instead.
+			// if (!$second_tier_partner_program_company) {
+			// 	$second_tier_partner_program_company = get_field('provider', $second_tier_partner_program->ID)->post_title;
+			// }
+			// $second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+			// if (!$second_tier_partner_program_program) {
+			// 	$second_tier_partner_program_program = $second_tier_partner_program->post_title;
+			// }
 			//         $second_tier_partner_program_unit = get_field('unit', $second_tier_partner_program->ID);
 			//         $second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
 			//         $second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
@@ -310,8 +322,14 @@ function ch_generate_redemption_table($atts) {
 
 			$partner_program = get_sub_field('partner_program');
 			$partner_program_fields = get_field_objects($partner_program->ID);
-			$partner_program_company = get_field('company', $partner_program->ID); // Deprecated
-			$partner_program_program = get_field('program', $partner_program->ID); // Deprecated
+			$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+			if (!$partner_program_company) {
+				$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+			}
+			$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+			if (!$partner_program_program) {
+				$partner_program_program = $partner_program->post_title;
+			}
 			$partner_program_unit = get_field('unit', $partner_program->ID);
 			$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
 			$partner_program_points_value = get_field('points_value', $partner_program->ID);
@@ -343,8 +361,14 @@ function ch_generate_redemption_table($atts) {
 		// Construct Secondary Table Body
 		foreach ($flexible_partner_programs as $flexible_partner_program) {
 
-			$flexible_partner_program_company = get_field('company', $flexible_partner_program->ID); // Deprecated
-			$flexible_partner_program_program = get_field('program', $flexible_partner_program->ID); // Deprecated
+			$flexible_partner_program_company = get_field('company', $flexible_partner_program->ID); // Deprecated, use get_field('provider'); instead.
+			if (!$flexible_partner_program_company) {
+				$flexible_partner_program_company = get_field('provider', $flexible_partner_program->ID)->post_title;
+			}
+			$flexible_partner_program_program = get_field('program', $flexible_partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+			if (!$flexible_partner_program_program) {
+				$flexible_partner_program_program = $flexible_partner_program->post_title;
+			}
 
 			// Construct Secondary Table Head
 			$table .= '
@@ -366,8 +390,14 @@ function ch_generate_redemption_table($atts) {
 
 				$second_tier_partner_program = get_sub_field('partner_program');
 				$second_tier_partner_program_fields = get_field_objects($second_tier_partner_program->ID);
-				$second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID); // Deprecated
-				$second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID); // Deprecated
+				$second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID); // Deprecated, use get_field('provider'); instead.
+				if (!$second_tier_partner_program_company) {
+					$second_tier_partner_program_company = get_field('provider', $second_tier_partner_program->ID)->post_title;
+				}
+				$second_tier_partner_program_program = get_field('program', $second_tier_partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+				if (!$second_tier_partner_program_program) {
+					$second_tier_partner_program_program = $second_tier_partner_program->post_title;
+				}
 				$second_tier_partner_program_unit = get_field('unit', $second_tier_partner_program->ID);
 				$second_tier_flexible_points_currency = get_field('flexible_points_currency', $second_tier_partner_program->ID);
 				$second_tier_partner_program_points_value = get_field('points_value', $second_tier_partner_program->ID);
