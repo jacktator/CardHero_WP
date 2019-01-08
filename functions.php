@@ -177,7 +177,7 @@ function ch_generate_earn_table($atts) {
 				if ($value === 0) {
 					$table .= '<td>Not Available</td>';
 				} else {
-					$table .= '<td> $1 earns <strong>' . $redemption_rate * $earn_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+					$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
 				}
 				$table .= '</tr>';
 
@@ -245,7 +245,7 @@ function ch_generate_earn_table($atts) {
 					if ($value === 0) {
 						$table .= '<td>Not Available</td>';
 					} else {
-						$table .= '<td> $1 earns <strong>' . $redemption_rate * $second_tier_redemption_rate * $earn_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+						$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate * $earn_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
 					}
 					$table .= '</tr>';
 
@@ -414,7 +414,7 @@ function ch_generate_redemption_table($atts) {
 				if ($value === 0) {
 					$table .= '<td>Not Available</td>';
 				} else {
-					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate * $second_tier_redemption_rate . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
 				}
 				$table .= '</tr>';
 
@@ -440,5 +440,24 @@ function ch_generate_redemption_table($atts) {
 	}
 }
 add_shortcode('ch_redemption_table', 'ch_generate_redemption_table');
+
+/*
+Trim Number to 4 Significant Digits.
+
+Author: Jacktator
+Reference: https://stackoverflow.com/a/48283297/3381997
+ */
+function sigFig($value, $digits) {
+	if ($value == 0) {
+		$decimalPlaces = $digits - 1;
+	} elseif ($value < 0) {
+		$decimalPlaces = $digits - floor(log10($value * -1)) - 1;
+	} else {
+		$decimalPlaces = $digits - floor(log10($value)) - 1;
+	}
+
+	$answer = round($value, $decimalPlaces);
+	return $answer;
+}
 
 ?>
