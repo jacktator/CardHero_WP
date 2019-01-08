@@ -157,10 +157,14 @@ function ch_generate_earn_table($atts) {
 
 				$partner_program = get_sub_field('partner_program');
 				$partner_program_fields = get_field_objects($partner_program->ID);
-				// $partner_program_company = get_field('company', $partner_program->ID); // Deprecated
-				// $partner_program_program = get_field('program', $partner_program->ID); // Deprecated
-				$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
-				$partner_program_program = $rewards_program->post_title;
+				$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+				if (!$partner_program_company) {
+					$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+				}
+				$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+				if (!$partner_program_program) {
+					$partner_program_program = $partner_program->post_title;
+				}
 				$partner_program_unit = get_field('unit', $partner_program->ID);
 				$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
 				$partner_program_points_value = get_field('points_value', $partner_program->ID);
