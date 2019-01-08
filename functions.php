@@ -207,7 +207,7 @@ function ch_generate_earn_table($atts) {
 				$table .= '
 			        <thead>
 			        <tr>
-			        <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' ' . $flexible_partner_program_program . ' </th>
+			        <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' - ' . $flexible_partner_program_program . ' </th>
 			        </tr>
 			        </thead>';
 
@@ -241,7 +241,7 @@ function ch_generate_earn_table($atts) {
 					$second_tier_notes = get_sub_field('notes');
 
 					$table .= '<tr>';
-					$table .= '<td>' . $second_tier_partner_program_program . '</td>';
+					$table .= '<td>' . $second_tier_partner_program_company . ' - ' $second_tier_partner_program_program . '</td>';
 					if ($value === 0) {
 						$table .= '<td>Not Available</td>';
 					} else {
@@ -374,7 +374,7 @@ function ch_generate_redemption_table($atts) {
 			$table .= '
                 <thead>
                 <tr>
-                <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' ' . $flexible_partner_program_program . ' </th>
+                <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' - ' . $flexible_partner_program_program . ' </th>
                 <th> Effective Redemption Rate</th>
                 </tr>
                 </thead>';
