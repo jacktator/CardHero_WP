@@ -110,7 +110,7 @@ function shortcode_acf_tablefield($atts) {
 add_shortcode('table', 'shortcode_acf_tablefield');
 
 /*
-Create shortcode for displaying Effective Earn Rate Table using CPT and ACF.
+Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
 
 Author: Jacktator
 Plugin: Custom Post Type UI 1.6.1
@@ -143,7 +143,7 @@ function ch_generate_earn_table($atts) {
                 <thead>
                 <tr>
                 <th>Reward Program</th>
-                <th>Effective Earn Rate</th>
+                <th>Maximum Earn Rate</th>
                 </tr>
                 </thead>';
 			$table .= $table_head;
