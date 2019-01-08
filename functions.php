@@ -456,8 +456,7 @@ function sigFig($value, $digits) {
 		$decimalPlaces = $digits - floor(log10($value)) - 1;
 	}
 
-	$answer = ($decimalPlaces > 0) ?
-	number_format($value, $decimalPlaces) : round($value, $decimalPlaces);
+	$answer = round($value, $decimalPlaces);
 	return $answer;
 }
 
