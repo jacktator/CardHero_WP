@@ -38,6 +38,9 @@
 .rq-alike-compare .rq-alike-topic-p .rq-alike-topic {
 	padding: 10px; /* Temporiry Fix: https://redqsupport.ticksy.com/ticket/1843123/ */
 }
+.rq-alike-compare .rq-alike-topic-p .rq-alike-topic.alike-image {
+	padding: 0px; /* Temporiry Fix: https://redqsupport.ticksy.com/ticket/1843123/ */
+}
 
 /*  
  Custom CSS to adjust the 'Compare' button for Alike plugin
