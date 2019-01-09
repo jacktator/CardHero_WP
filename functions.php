@@ -236,13 +236,7 @@ function ch_generate_further_earn_table($atts) {
 		if (have_rows('redemption_parnters', $rewards_program->ID)) {
 			$table = '';
 			// Construct Table Head
-			$table_head = '<table style="width: 100%;">
-                <thead>
-                <tr>
-                <th>Reward Program</th>
-                <th>Maximum Earn Rate</th>
-                </tr>
-                </thead>';
+			$table_head = '<table style="width: 100%;">';
 			$table .= $table_head;
 
 			// Construct Table Body
@@ -305,7 +299,8 @@ function ch_generate_further_earn_table($atts) {
 				$table .= '
 			        <thead>
 			        <tr>
-			        <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' - ' . $flexible_partner_program_program . ' </th>
+			        <th> Reward Program via ' . $flexible_partner_program_company . ' - ' . $flexible_partner_program_program . ' </th>
+                	<th>Maximum Earn Rate</th>
 			        </tr>
 			        </thead>';
 
