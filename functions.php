@@ -190,6 +190,104 @@ function ch_generate_earn_table($atts) {
 					array_push($flexible_partner_programs, $partner_program);
 				}
 			}
+			$table .= '</tbody>';
+
+			// Close Table
+			$table .= '</table>';
+
+			// Return Table
+			return $table;
+		} else {
+			return 'redemption_parnters is empty.';
+		}
+	} else {
+		return 'Rewards Program is empty.';
+	}
+}
+add_shortcode('ch_effective_earn_table', 'ch_generate_earn_table');
+
+/*
+Create shortcode for displaying Further Earn Rate Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_further_earn_table earn_rate="2"] // Meaning Earning 2 Credit Card Points per Dollar
+ */
+function ch_generate_further_earn_table($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'earn_rate' => 1, // Default earn_rate to 1
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	// // get value and return it
+	$rewards_program = get_field('rewards_program');
+
+	if ($rewards_program) {
+
+		// Store Flexible Points for Second Tier Table
+		$flexible_partner_programs = array();
+		$excluding_partner_programs = array();
+
+		if (have_rows('redemption_parnters', $rewards_program->ID)) {
+			$table = '';
+			// Construct Table Head
+			$table_head = '<table style="width: 100%;">
+                <thead>
+                <tr>
+                <th>Reward Program</th>
+                <th>Maximum Earn Rate</th>
+                </tr>
+                </thead>';
+			$table .= $table_head;
+
+			// Construct Table Body
+			$table .= '<tbody>';
+
+			while (have_rows('redemption_parnters', $rewards_program->ID)) {
+
+				the_row();
+
+				$partner_program = get_sub_field('partner_program');
+				$partner_program_fields = get_field_objects($partner_program->ID);
+				$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+				if (!$partner_program_company) {
+					$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+				}
+				$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+				if (!$partner_program_program) {
+					$partner_program_program = $partner_program->post_title;
+				}
+				$partner_program_unit = get_field('unit', $partner_program->ID);
+				$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+				$partner_program_points_value = get_field('points_value', $partner_program->ID);
+
+				$redemption_rate = get_sub_field('redemption_rate');
+				$notes = get_sub_field('notes');
+
+				// $table .= '<tr>';
+				// $table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
+				// if ($value === 0) {
+				// 	$table .= '<td>Not Available</td>';
+				// } else {
+				// 	$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+				// }
+				// $table .= '</tr>';
+
+				// Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+				array_push($excluding_partner_programs, $partner_program_program);
+
+				// Add Flexible Points Program to Array
+				if (!in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency) {
+
+					array_push($flexible_partner_programs, $partner_program);
+				}
+			}
+			$table .= '</tbody>';
 
 			// Construct Secondary Table Body
 			foreach ($flexible_partner_programs as $flexible_partner_program) {
@@ -262,7 +360,7 @@ function ch_generate_earn_table($atts) {
 			}
 
 			// Close Table
-			$table .= '</tbody></table>';
+			$table .= '</table>';
 
 			// Return Table
 			return $table;
@@ -273,7 +371,7 @@ function ch_generate_earn_table($atts) {
 		return 'Rewards Program is empty.';
 	}
 }
-add_shortcode('ch_effective_earn_table', 'ch_generate_earn_table');
+add_shortcode('ch_further_earn_table', 'ch_generate_further_earn_table');
 
 /*
 Create shortcode for displaying Redemption Table using CPT and ACF.
