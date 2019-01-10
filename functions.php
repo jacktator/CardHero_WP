@@ -106,19 +106,17 @@ function shortcode_acf_tablefield($atts) {
 
 	return $return;
 }
-
 add_shortcode('table', 'shortcode_acf_tablefield');
 
 /*
-Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
+Create Tabs
 
 Author: Jacktator
-Plugin: Custom Post Type UI 1.6.1
-Plugin: Advanced Custom Fields PRO 5.7.9
-Reference: https://wordpress.stackexchange.com/a/291525/134082
-Usage: [ch_effective_earn_table earn_rate="2"] // Meaning Earning 2 Credit Card Points per Dollar
+Plugin: Visual Composer Extensions All In One 3.4.9.3
+ShortCode: [cq_vc_tab_item]
+Usage: [ch_rewards_programs_tabs earn_rate="2"] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
  */
-function ch_generate_earn_table($atts) {
+function ch_generate_rewards_programs_tabs($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
@@ -126,6 +124,8 @@ function ch_generate_earn_table($atts) {
 		'post_id' => false, // Default
 		'format_value' => true, // Default
 	), $atts));
+
+	$rewards_programs_tabs = "";
 
 	// // get value and return it
 	$rewards_programs = get_field('rewards_program');
@@ -136,95 +136,121 @@ function ch_generate_earn_table($atts) {
 		$flexible_partner_programs = array();
 		$excluding_partner_programs = array();
 
-		$tabs = "";
+		$rewards_programs_tabs = "";
 
 		// Construct Tabs
-		$tabs .= '[cq_vc_tabs rotatetabs="0"]';
+		$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
 		foreach ($rewards_programs as $rewards_program) {
 
 			// Construct Single Tab Item
-			$tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
+			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
 			if (have_rows('redemption_parnters', $rewards_program->ID)) {
-				$table = '';
-				// Construct Table Head
-				$table_head = '<table style="width: 100%;">
+
+				$table = '[ch_effective_earn_table earn_rate="' . $earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
+
+				// Return Table
+				$rewards_programs_tabs .= $table;
+			} else {
+				return 'redemption_parnters is empty.';
+			}
+
+			// Close Single Tab Item
+			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
+
+		}
+
+		// Close Tabs
+		$rewards_programs_tabs .= '[/cq_vc_tabs]';
+
+		return $rewards_programs_tabs;
+	} else {
+		return 'Tab: Rewards Programs is empty.';
+	}
+}
+add_shortcode('ch_rewards_programs_tabs', 'ch_generate_rewards_programs_tabs');
+
+/*
+Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage:  [ch_rewards_program_table earn_rate="2" rewards_program="24"] // Generate the Reward Table, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
+ */
+function ch_generate_rewards_program_table($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'earn_rate' => 1, // Default earn_rate to 1
+		'rewards_program' => 0, // ID of Rewards_Program Object
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	// extract attributs
+
+	$table = '';
+	// Construct Table Head
+	$table_head = '<table style="width: 100%;">
 	                <thead>
 	                <tr>
 	                <th>Reward Program</th>
 	                <th>Maximum Earn Rate</th>
 	                </tr>
 	                </thead>';
-				$table .= $table_head;
+	$table .= $table_head;
 
-				// Construct Table Body
-				$table .= '<tbody>';
+	// Construct Table Body
+	$table .= '<tbody>';
 
-				while (have_rows('redemption_parnters', $rewards_program->ID)) {
+	while (have_rows('redemption_parnters', $rewards_program)) {
 
-					the_row();
+		the_row();
 
-					$partner_program = get_sub_field('partner_program');
-					$partner_program_fields = get_field_objects($partner_program->ID);
-					$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
-					if (!$partner_program_company) {
-						$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
-					}
-					$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
-					if (!$partner_program_program) {
-						$partner_program_program = $partner_program->post_title;
-					}
-					$partner_program_unit = get_field('unit', $partner_program->ID);
-					$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-					$partner_program_points_value = get_field('points_value', $partner_program->ID);
-
-					$redemption_rate = get_sub_field('redemption_rate');
-					$notes = get_sub_field('notes');
-
-					$table .= '<tr>';
-					$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
-					if ($value === 0) {
-						$table .= '<td>Not Available</td>';
-					} else {
-						$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
-					}
-					$table .= '</tr>';
-
-					// Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
-					array_push($excluding_partner_programs, $partner_program_program);
-
-					// Add Flexible Points Program to Array
-					if (!in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency) {
-
-						array_push($flexible_partner_programs, $partner_program);
-					}
-				}
-				$table .= '</tbody>';
-
-				// Close Table
-				$table .= '</table>';
-
-				// Return Table
-				$tabs .= $table;
-			} else {
-				return 'redemption_parnters is empty.';
-			}
-
-			// Close Single Tab Item
-			$tabs .= '[/cq_vc_tab_item]';
-
+		$partner_program = get_sub_field('partner_program');
+		$partner_program_fields = get_field_objects($partner_program->ID);
+		$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+		if (!$partner_program_company) {
+			$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
 		}
+		$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+		if (!$partner_program_program) {
+			$partner_program_program = $partner_program->post_title;
+		}
+		$partner_program_unit = get_field('unit', $partner_program->ID);
+		$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+		$partner_program_points_value = get_field('points_value', $partner_program->ID);
 
-		// Close Tabs
-		$tabs .= '[/cq_vc_tabs]';
+		$redemption_rate = get_sub_field('redemption_rate');
+		$notes = get_sub_field('notes');
 
-		return $tabs;
-	} else {
-		return 'Rewards Program is empty.';
+		$table .= '<tr>';
+		$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
+		if ($value === 0) {
+			$table .= '<td>Not Available</td>';
+		} else {
+			$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+		}
+		$table .= '</tr>';
+
+		// Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+		array_push($excluding_partner_programs, $partner_program_program);
+
+		// Add Flexible Points Program to Array
+		if (!in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency) {
+
+			array_push($flexible_partner_programs, $partner_program);
+		}
 	}
+	$table .= '</tbody>';
+
+	// Close Table
+	$table .= '</table>';
 }
-add_shortcode('ch_effective_earn_table', 'ch_generate_earn_table');
+add_shortcode('ch_rewards_program_table', 'ch_generate_rewards_program_table');
 
 /*
 Create shortcode for displaying Further Earn Rate Table using CPT and ACF.
