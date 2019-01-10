@@ -222,7 +222,7 @@ function ch_generate_rewards_programs_tabs($atts) {
 		$rewards_programs_tabs = "";
 
 		// Construct Tabs
-		$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
+		$rewards_programs_tabs .= '[cq_vc_tabs tabsstyle="style2" rotatetabs="0"]';
 
 		foreach ($rewards_programs as $rewards_program) {
 
