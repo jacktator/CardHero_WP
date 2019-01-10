@@ -115,9 +115,118 @@ Author: Jacktator
 Plugin: Custom Post Type UI 1.6.1
 Plugin: Advanced Custom Fields PRO 5.7.9
 Reference: https://wordpress.stackexchange.com/a/291525/134082
-Usage:  [ch_rewards_program_table earn_rate="2" rewards_program="24"] // Generate the Reward Table, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
+Usage:  [ch_credit_card_rewards_programs_earn_table rewards_program="24"] // Generate the Reward Table, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
  */
-function ch_generate_rewards_program_table($atts) {
+function ch_generate_credit_card_rewards_programs_earn_table($atts) {
+	// TODO
+}
+add_shortcode('ch_credit_card_rewards_programs_earn_table', 'ch_generate_credit_card_rewards_programs_earn_table');
+
+/*
+Create Tabs
+
+Author: Jacktator
+Plugin: Visual Composer Extensions All In One 3.4.9.3
+ShortCode: [cq_vc_tab_item]
+Usage: [ch_credit_card_rewards_programs_earn_tabs] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
+ */
+function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'rewards_program',
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	// extract attributs
+
+	// Construct Tabs
+	$rewards_programs_tabs = "";
+
+	// Construct Tabs
+	$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
+
+	$rewards_programs = get_field('rewards_programs'); // Repeater
+
+	if (have_rows('rewards_programs')) {
+
+		while (have_rows('rewards_programs')) {
+
+			the_row();
+
+			// Feth Rewards Program Data
+			$rewards_program = get_sub_field('rewards_program');
+
+			// Construct Single Tab Item
+			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
+
+			// Find the Max Earn Rate
+			if (have_rows('earn_rates')) {
+
+				$rewards_programs_table = '';
+				// Construct Table Head
+				$table_head = '<table style="width: 100%;">
+				                <thead>
+				                <tr>
+				                <th>Categories</th>
+				                <th>Earn Rate</th>
+				                </tr>
+				                </thead>';
+				$rewards_programs_table .= $table_head;
+
+				// Construct Table Body
+				$rewards_programs_table .= '<tbody>';
+
+				while (have_rows('earn_rates')) {
+
+					the_row();
+
+					$earn_rate = get_sub_field('earn_rate');
+					$categories = get_sub_field('categories');
+					$notes = get_sub_field('notes');
+
+					$rewards_programs_table .= '<tr>';
+					$rewards_programs_table .= '<td>' . $categories . '</td>';
+					$rewards_programs_table .= '<td>' . $earn_rate . '</td>';
+					$rewards_programs_table .= '</tr>';
+				}
+
+				// Close Table Body
+				$rewards_programs_table .= '</tbody>';
+
+				// Close Table
+				$rewards_programs_table .= '</table>';
+
+				// $rewards_programs_table = '[ch_generate_credit_card_rewards_programs_earn_table rewards_program="' . $rewards_program->ID .'"]';
+
+				// Return Table
+				$rewards_programs_tabs .= $rewards_programs_table;
+
+			}
+
+			// Close Single Tab Item
+			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
+		}
+	}
+
+	// Close Tabs
+	$rewards_programs_tabs .= '[/cq_vc_tabs]';
+
+	return $rewards_programs_tabs;
+}
+add_shortcode('ch_credit_card_rewards_programs_earn_tabs', 'ch_generate_credit_card_rewards_programs_earn_tabs');
+
+/*
+Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage:  [ch_credit_card_rewards_programs_redemption_table earn_rate="2" rewards_program="24"] // Generate the Reward Table, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
+ */
+function ch_generate_credit_card_rewards_programs_redemption_table($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
@@ -182,7 +291,7 @@ function ch_generate_rewards_program_table($atts) {
 
 	return $table;
 }
-add_shortcode('ch_rewards_program_table', 'ch_generate_rewards_program_table');
+add_shortcode('ch_credit_card_rewards_programs_redemption_table', 'ch_generate_credit_card_rewards_programs_redemption_table');
 
 /*
 Create Tabs
@@ -190,9 +299,9 @@ Create Tabs
 Author: Jacktator
 Plugin: Visual Composer Extensions All In One 3.4.9.3
 ShortCode: [cq_vc_tab_item]
-Usage: [ch_rewards_programs_tabs] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
+Usage: [ch_credit_card_rewards_programs_redemption_tabs] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
  */
-function ch_generate_rewards_programs_tabs($atts) {
+function ch_generate_credit_card_rewards_programs_redemption_tabs($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
@@ -260,52 +369,8 @@ function ch_generate_rewards_programs_tabs($atts) {
 	} else {
 		return "Error: Rewards Programs is empty.";
 	}
-
-	// ========= //
-
-	// // get value and return it
-	// $rewards_programs = get_field('rewards_program');
-
-	// if ($rewards_programs) {
-
-	// 	// Store Flexible Points for Second Tier Table
-	// 	$flexible_partner_programs = array();
-	// 	$excluding_partner_programs = array();
-
-	// 	$rewards_programs_tabs = "";
-
-	// 	// Construct Tabs
-	// 	$rewards_programs_tabs .= '[cq_vc_tabs tabsstyle="style2" rotatetabs="0"]';
-
-	// 	foreach ($rewards_programs as $rewards_program) {
-
-	// 		// Construct Single Tab Item
-	// 		$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
-
-	// 		if (have_rows('redemption_parnters', $rewards_program->ID)) {
-
-	// 			$table = '[ch_rewards_program_table earn_rate="' . $earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
-
-	// 			// Return Table
-	// 			$rewards_programs_tabs .= $table;
-	// 		} else {
-	// 			return 'redemption_parnters is empty.';
-	// 		}
-
-	// 		// Close Single Tab Item
-	// 		$rewards_programs_tabs .= '[/cq_vc_tab_item]';
-
-	// 	}
-
-	// 	// Close Tabs
-	// 	$rewards_programs_tabs .= '[/cq_vc_tabs]';
-
-	// 	return $rewards_programs_tabs;
-	// } else {
-	// 	return 'Tab: Rewards Programs is empty.';
-	// }
 }
-add_shortcode('ch_rewards_programs_tabs', 'ch_generate_rewards_programs_tabs');
+add_shortcode('ch_credit_card_rewards_programs_redemption_tabs', 'ch_generate_credit_card_rewards_programs_redemption_tabs');
 
 /*
 Create shortcode for displaying Further Earn Rate Table using CPT and ACF.
@@ -314,9 +379,9 @@ Author: Jacktator
 Plugin: Custom Post Type UI 1.6.1
 Plugin: Advanced Custom Fields PRO 5.7.9
 Reference: https://wordpress.stackexchange.com/a/291525/134082
-Usage:  [ch_rewards_program_more_table earn_rate="2" rewards_program="24"] // Generate the Reward Table with More redemption, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
+Usage:  [ch_credit_card_rewards_programs_more_redemption_table earn_rate="2" rewards_program="24"] // Generate the Reward Table with More redemption, Based on Earning 2 Credit Card Points per Dollar, and rewards_program ID is 24
  */
-function ch_generate_rewards_program_more_table($atts) {
+function ch_generate_credit_card_rewards_programs_more_redemption_table($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
@@ -451,7 +516,7 @@ function ch_generate_rewards_program_more_table($atts) {
 		return 'Reward Program has no Redemption Partner.';
 	}
 }
-add_shortcode('ch_rewards_program_more_table', 'ch_generate_rewards_program_more_table');
+add_shortcode('ch_credit_card_rewards_programs_more_redemption_table', 'ch_generate_credit_card_rewards_programs_more_redemption_table');
 
 /*
 Create Tabs
@@ -459,9 +524,9 @@ Create Tabs
 Author: Jacktator
 Plugin: Visual Composer Extensions All In One 3.4.9.3
 ShortCode: [cq_vc_tab_item]
-Usage: [ch_rewards_programs_tabs] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
+Usage: [ch_credit_card_rewards_programs_more_redemption_tabs] // Renders Rewards Programs in Tabs, Based on Earning 2 Credit Card Points per Dollar
  */
-function ch_generate_rewards_programs_more_tabs($atts) {
+function ch_generate_credit_card_rewards_programs_more_redemption_tabs($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
@@ -529,52 +594,8 @@ function ch_generate_rewards_programs_more_tabs($atts) {
 	} else {
 		return "Error: Rewards Programs is empty.";
 	}
-
-	// ========= //
-
-	// // get value and return it
-	// $rewards_programs = get_field('rewards_program');
-
-	// if ($rewards_programs) {
-
-	// 	// Store Flexible Points for Second Tier Table
-	// 	$flexible_partner_programs = array();
-	// 	$excluding_partner_programs = array();
-
-	// 	$rewards_programs_tabs = "";
-
-	// 	// Construct Tabs
-	// 	$rewards_programs_tabs .= '[cq_vc_tabs tabsstyle="style2" rotatetabs="0"]';
-
-	// 	foreach ($rewards_programs as $rewards_program) {
-
-	// 		// Construct Single Tab Item
-	// 		$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
-
-	// 		if (have_rows('redemption_parnters', $rewards_program->ID)) {
-
-	// 			$table = '[ch_rewards_program_table earn_rate="' . $earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
-
-	// 			// Return Table
-	// 			$rewards_programs_tabs .= $table;
-	// 		} else {
-	// 			return 'redemption_parnters is empty.';
-	// 		}
-
-	// 		// Close Single Tab Item
-	// 		$rewards_programs_tabs .= '[/cq_vc_tab_item]';
-
-	// 	}
-
-	// 	// Close Tabs
-	// 	$rewards_programs_tabs .= '[/cq_vc_tabs]';
-
-	// 	return $rewards_programs_tabs;
-	// } else {
-	// 	return 'Tab: Rewards Programs is empty.';
-	// }
 }
-add_shortcode('ch_rewards_programs_more_tabs', 'ch_generate_rewards_programs_more_tabs');
+add_shortcode('ch_credit_card_rewards_programs_more_redemption_tabs', 'ch_generate_credit_card_rewards_programs_more_redemption_tabs');
 
 /*
 Create shortcode for displaying Redemption Table using CPT and ACF.
