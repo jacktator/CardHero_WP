@@ -187,7 +187,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 					$notes = get_sub_field('notes');
 
 					$rewards_programs_table .= '<tr>';
-					$rewards_programs_table .= '<td>' . $categories . '</td>';
+					$rewards_programs_table .= '<td>' . implode(", ", $categories) . '</td>';
 					$rewards_programs_table .= '<td>' . $earn_rate . '</td>';
 					$rewards_programs_table .= '</tr>';
 				}
@@ -352,7 +352,7 @@ function ch_generate_credit_card_rewards_programs_redemption_tabs($atts) {
 			// Construct Single Tab Item
 			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
-			$rewards_programs_table = '[ch_rewards_program_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
+			$rewards_programs_table = '[ch_credit_card_rewards_programs_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
 
 			// Return Table
 			$rewards_programs_tabs .= $rewards_programs_table;
@@ -577,7 +577,7 @@ function ch_generate_credit_card_rewards_programs_more_redemption_tabs($atts) {
 			// Construct Single Tab Item
 			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
-			$rewards_programs_table = '[ch_rewards_program_more_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
+			$rewards_programs_table = '[ch_credit_card_rewards_programs_more_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
 
 			// Return Table
 			$rewards_programs_tabs .= $rewards_programs_table;
