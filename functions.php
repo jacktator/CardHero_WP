@@ -263,6 +263,7 @@ function ch_generate_rewards_programs_tabs($atts) {
 		// Close Tabs
 		$rewards_programs_tabs .= '[/cq_vc_tabs]';
 
+		return $rewards_programs_tabs;
 	} else {
 		return "Error: Rewards Programs is empty.";
 	}
