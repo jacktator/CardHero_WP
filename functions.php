@@ -128,78 +128,94 @@ function ch_generate_earn_table($atts) {
 	), $atts));
 
 	// // get value and return it
-	$rewards_program = get_field('rewards_program');
+	$rewards_programs = get_field('rewards_program');
 
-	if ($rewards_program) {
+	if ($rewards_programs) {
 
 		// Store Flexible Points for Second Tier Table
 		$flexible_partner_programs = array();
 		$excluding_partner_programs = array();
 
-		if (have_rows('redemption_parnters', $rewards_program->ID)) {
-			$table = '';
-			// Construct Table Head
-			$table_head = '<table style="width: 100%;">
-                <thead>
-                <tr>
-                <th>Reward Program</th>
-                <th>Maximum Earn Rate</th>
-                </tr>
-                </thead>';
-			$table .= $table_head;
+		// Construct Tabs
+		echo do_shortcode('[cq_vc_tabs rotatetabs="0"]');
 
-			// Construct Table Body
-			$table .= '<tbody>';
+		foreach ($rewards_programs as $rewards_program) {
 
-			while (have_rows('redemption_parnters', $rewards_program->ID)) {
+			// Construct Single Tab Item
+			echo do_shortcode('[cq_vc_tab_item]');
 
-				the_row();
+			if (have_rows('redemption_parnters', $rewards_program->ID)) {
+				$table = '';
+				// Construct Table Head
+				$table_head = '<table style="width: 100%;">
+	                <thead>
+	                <tr>
+	                <th>Reward Program</th>
+	                <th>Maximum Earn Rate</th>
+	                </tr>
+	                </thead>';
+				$table .= $table_head;
 
-				$partner_program = get_sub_field('partner_program');
-				$partner_program_fields = get_field_objects($partner_program->ID);
-				$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
-				if (!$partner_program_company) {
-					$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+				// Construct Table Body
+				$table .= '<tbody>';
+
+				while (have_rows('redemption_parnters', $rewards_program->ID)) {
+
+					the_row();
+
+					$partner_program = get_sub_field('partner_program');
+					$partner_program_fields = get_field_objects($partner_program->ID);
+					$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+					if (!$partner_program_company) {
+						$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+					}
+					$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+					if (!$partner_program_program) {
+						$partner_program_program = $partner_program->post_title;
+					}
+					$partner_program_unit = get_field('unit', $partner_program->ID);
+					$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+					$partner_program_points_value = get_field('points_value', $partner_program->ID);
+
+					$redemption_rate = get_sub_field('redemption_rate');
+					$notes = get_sub_field('notes');
+
+					$table .= '<tr>';
+					$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
+					if ($value === 0) {
+						$table .= '<td>Not Available</td>';
+					} else {
+						$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+					}
+					$table .= '</tr>';
+
+					// Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
+					array_push($excluding_partner_programs, $partner_program_program);
+
+					// Add Flexible Points Program to Array
+					if (!in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency) {
+
+						array_push($flexible_partner_programs, $partner_program);
+					}
 				}
-				$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
-				if (!$partner_program_program) {
-					$partner_program_program = $partner_program->post_title;
-				}
-				$partner_program_unit = get_field('unit', $partner_program->ID);
-				$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-				$partner_program_points_value = get_field('points_value', $partner_program->ID);
+				$table .= '</tbody>';
 
-				$redemption_rate = get_sub_field('redemption_rate');
-				$notes = get_sub_field('notes');
+				// Close Table
+				$table .= '</table>';
 
-				$table .= '<tr>';
-				$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
-				if ($value === 0) {
-					$table .= '<td>Not Available</td>';
-				} else {
-					$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
-				}
-				$table .= '</tr>';
-
-				// Add program to $excluding_partner_programs to avoid duplication when handle second tier redemotion
-				array_push($excluding_partner_programs, $partner_program_program);
-
-				// Add Flexible Points Program to Array
-				if (!in_array($partner_program, $excluding_partner_programs) && $flexible_points_currency) {
-
-					array_push($flexible_partner_programs, $partner_program);
-				}
+				// Return Table
+				return $table;
+			} else {
+				return 'redemption_parnters is empty.';
 			}
-			$table .= '</tbody>';
 
-			// Close Table
-			$table .= '</table>';
+			// Close Single Tab Item
+			echo do_shortcode('[/cq_vc_tab_item]');
 
-			// Return Table
-			return $table;
-		} else {
-			return 'redemption_parnters is empty.';
 		}
+
+		// Close Tabs
+		echo do_shortcode('[/cq_vc_tabs]');
 	} else {
 		return 'Rewards Program is empty.';
 	}
