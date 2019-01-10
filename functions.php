@@ -142,7 +142,7 @@ function ch_generate_earn_table($atts) {
 		foreach ($rewards_programs as $rewards_program) {
 
 			// Construct Single Tab Item
-			echo do_shortcode('[cq_vc_tab_item]');
+			echo do_shortcode('[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]');
 
 			if (have_rows('redemption_parnters', $rewards_program->ID)) {
 				$table = '';
@@ -204,7 +204,7 @@ function ch_generate_earn_table($atts) {
 				$table .= '</table>';
 
 				// Return Table
-				return $table;
+				echo $table;
 			} else {
 				return 'redemption_parnters is empty.';
 			}
