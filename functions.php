@@ -136,13 +136,15 @@ function ch_generate_earn_table($atts) {
 		$flexible_partner_programs = array();
 		$excluding_partner_programs = array();
 
+		$tabs = "";
+
 		// Construct Tabs
-		echo do_shortcode('[cq_vc_tabs rotatetabs="0"]');
+		$tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
 		foreach ($rewards_programs as $rewards_program) {
 
 			// Construct Single Tab Item
-			echo do_shortcode('[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]');
+			$tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
 			if (have_rows('redemption_parnters', $rewards_program->ID)) {
 				$table = '';
@@ -204,18 +206,20 @@ function ch_generate_earn_table($atts) {
 				$table .= '</table>';
 
 				// Return Table
-				echo $table;
+				$tabs .= $table;
 			} else {
 				return 'redemption_parnters is empty.';
 			}
 
 			// Close Single Tab Item
-			echo do_shortcode('[/cq_vc_tab_item]');
+			$tabs .= '[/cq_vc_tab_item]';
 
 		}
 
 		// Close Tabs
-		echo do_shortcode('[/cq_vc_tabs]');
+		$tabs .= '[/cq_vc_tabs]';
+
+		return $tabs;
 	} else {
 		return 'Rewards Program is empty.';
 	}
