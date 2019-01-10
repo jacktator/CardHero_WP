@@ -186,6 +186,8 @@ function ch_generate_rewards_program_table($atts) {
 
 	// Close Table
 	$table .= '</table>';
+
+	return $table;
 }
 add_shortcode('ch_rewards_program_table', 'ch_generate_rewards_program_table');
 
