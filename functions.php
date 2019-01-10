@@ -189,7 +189,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 
 					$rewards_programs_table .= '<tr>';
 					$rewards_programs_table .= '<td>' . implode(", ", $categories) . '</td>';
-					$rewards_programs_table .= '<td> Earn ' . $earn_rate . ' ' . $rewards_program_unit . ' Per Dollar spent. </td>';
+					$rewards_programs_table .= '<td> Earn <strong>' . $earn_rate . ' ' . $rewards_program_unit . '</strong> Per Dollar. </td>';
 					$rewards_programs_table .= '</tr>';
 				}
 
