@@ -203,41 +203,57 @@ function ch_generate_rewards_programs_tabs($atts) {
 
 	// extract attributs
 	extract(shortcode_atts(array(
-		'earn_rate' => 1, // Default earn_rate to 1
+		'earn_rate' => 1, // Default earn_rate to 1, Deprecated
 		'post_id' => false, // Default
 		'format_value' => true, // Default
 	), $atts));
 
-	$rewards_programs_tabs = "";
+	// Store Flexible Points for Second Tier Table
+	$flexible_partner_programs = array();
+	$excluding_partner_programs = array();
 
-	// // get value and return it
-	$rewards_programs = get_field('rewards_program');
+	$rewards_programs = get_field('rewards_programs'); // Repeater
 
-	if ($rewards_programs) {
+	if (have_rows('rewards_programs') {
 
-		// Store Flexible Points for Second Tier Table
-		$flexible_partner_programs = array();
-		$excluding_partner_programs = array();
-
+		// Construct Tabs
 		$rewards_programs_tabs = "";
 
 		// Construct Tabs
-		$rewards_programs_tabs .= '[cq_vc_tabs tabsstyle="style2" rotatetabs="0"]';
+		$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
-		foreach ($rewards_programs as $rewards_program) {
+		while (have_rows('rewards_programs')) {
+
+			the_row();
+
+			// Feth Rewards Program Data
+			$rewards_program = get_sub_field('rewards_program');
+			$max_earn_rate = 0;
+
+			// Find the Max Earn Rate
+			if (have_rows('earn_rates')) {
+
+				while (have_rows(earn_rates)) {
+
+					the_row();
+
+					$earn_rate = get_sub_field('earn_rate');
+
+					if ($earn_rate > $max_earn_rate) {
+						$max_earn_rate = $earn_rate;
+					}
+
+				}
+
+			}
 
 			// Construct Single Tab Item
 			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
-			if (have_rows('redemption_parnters', $rewards_program->ID)) {
+			$rewards_programs_table = '[ch_rewards_program_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
 
-				$table = '[ch_rewards_program_table earn_rate="' . $earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
-
-				// Return Table
-				$rewards_programs_tabs .= $table;
-			} else {
-				return 'redemption_parnters is empty.';
-			}
+			// Return Table
+			$rewards_programs_tabs .= $rewards_programs_table;
 
 			// Close Single Tab Item
 			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
@@ -247,10 +263,57 @@ function ch_generate_rewards_programs_tabs($atts) {
 		// Close Tabs
 		$rewards_programs_tabs .= '[/cq_vc_tabs]';
 
-		return $rewards_programs_tabs;
 	} else {
-		return 'Tab: Rewards Programs is empty.';
+		return "Error: Rewards Programs is empty.";
 	}
+
+	foreach ($rewards_programs as $rewards_program) {
+
+	}
+
+	// ========= //
+
+	// // get value and return it
+	// $rewards_programs = get_field('rewards_program');
+
+	// if ($rewards_programs) {
+
+	// 	// Store Flexible Points for Second Tier Table
+	// 	$flexible_partner_programs = array();
+	// 	$excluding_partner_programs = array();
+
+	// 	$rewards_programs_tabs = "";
+
+	// 	// Construct Tabs
+	// 	$rewards_programs_tabs .= '[cq_vc_tabs tabsstyle="style2" rotatetabs="0"]';
+
+	// 	foreach ($rewards_programs as $rewards_program) {
+
+	// 		// Construct Single Tab Item
+	// 		$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
+
+	// 		if (have_rows('redemption_parnters', $rewards_program->ID)) {
+
+	// 			$table = '[ch_rewards_program_table earn_rate="' . $earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
+
+	// 			// Return Table
+	// 			$rewards_programs_tabs .= $table;
+	// 		} else {
+	// 			return 'redemption_parnters is empty.';
+	// 		}
+
+	// 		// Close Single Tab Item
+	// 		$rewards_programs_tabs .= '[/cq_vc_tab_item]';
+
+	// 	}
+
+	// 	// Close Tabs
+	// 	$rewards_programs_tabs .= '[/cq_vc_tabs]';
+
+	// 	return $rewards_programs_tabs;
+	// } else {
+	// 	return 'Tab: Rewards Programs is empty.';
+	// }
 }
 add_shortcode('ch_rewards_programs_tabs', 'ch_generate_rewards_programs_tabs');
 
