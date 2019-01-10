@@ -214,7 +214,7 @@ function ch_generate_rewards_programs_tabs($atts) {
 
 	$rewards_programs = get_field('rewards_programs'); // Repeater
 
-	if (have_rows('rewards_programs') {
+	if (have_rows('rewards_programs')) {
 
 		// Construct Tabs
 		$rewards_programs_tabs = "";
@@ -265,10 +265,6 @@ function ch_generate_rewards_programs_tabs($atts) {
 
 	} else {
 		return "Error: Rewards Programs is empty.";
-	}
-
-	foreach ($rewards_programs as $rewards_program) {
-
 	}
 
 	// ========= //
