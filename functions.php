@@ -157,6 +157,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 
 			// Feth Rewards Program Data
 			$rewards_program = get_sub_field('rewards_program');
+			$rewards_program_unit = get_field('unit', $rewards_program->ID);
 
 			// Construct Single Tab Item
 			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
@@ -188,7 +189,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 
 					$rewards_programs_table .= '<tr>';
 					$rewards_programs_table .= '<td>' . implode(", ", $categories) . '</td>';
-					$rewards_programs_table .= '<td>' . $earn_rate . '</td>';
+					$rewards_programs_table .= '<td> Earn ' . $earn_rate . ' ' . $rewards_program_unit . ' Per Dollar spent. </td>';
 					$rewards_programs_table .= '</tr>';
 				}
 
