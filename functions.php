@@ -50,66 +50,66 @@ Author: Jacktator
 Plugin: Advanced Custom Field Table Field 1.2.6
 Reference: https://wordpress.org/plugins/advanced-custom-fields-table-field/
  */
-function shortcode_acf_tablefield($atts) {
+// function shortcode_acf_tablefield($atts) {
 
-	$a = shortcode_atts(array(
-		'field-name' => false,
-		'post-id' => false,
-	), $atts);
+// 	$a = shortcode_atts(array(
+// 		'field-name' => false,
+// 		'post-id' => false,
+// 	), $atts);
 
-	$table = get_field($a['field-name'], $a['post-id']);
+// 	$table = get_field($a['field-name'], $a['post-id']);
 
-	$return = '';
+// 	$return = '';
 
-	if ($table) {
+// 	if ($table) {
 
-		$return .= '<table style="width: 100%;">';
+// 		$return .= '<table style="width: 100%;">';
 
-		if ($table['header']) {
+// 		if ($table['header']) {
 
-			$return .= '<thead>';
+// 			$return .= '<thead>';
 
-			$return .= '<tr>';
+// 			$return .= '<tr>';
 
-			foreach ($table['header'] as $th) {
+// 			foreach ($table['header'] as $th) {
 
-				$return .= '<th>';
-				$return .= $th['c'];
-				$return .= '</th>';
-			}
+// 				$return .= '<th>';
+// 				$return .= $th['c'];
+// 				$return .= '</th>';
+// 			}
 
-			$return .= '</tr>';
+// 			$return .= '</tr>';
 
-			$return .= '</thead>';
-		}
+// 			$return .= '</thead>';
+// 		}
 
-		$return .= '<tbody>';
+// 		$return .= '<tbody>';
 
-		foreach ($table['body'] as $tr) {
+// 		foreach ($table['body'] as $tr) {
 
-			$return .= '<tr>';
+// 			$return .= '<tr>';
 
-			foreach ($tr as $td) {
+// 			foreach ($tr as $td) {
 
-				$return .= '<td>';
-				$return .= $td['c'];
-				$return .= '</td>';
-			}
+// 				$return .= '<td>';
+// 				$return .= $td['c'];
+// 				$return .= '</td>';
+// 			}
 
-			$return .= '</tr>';
-		}
+// 			$return .= '</tr>';
+// 		}
 
-		$return .= '</tbody>';
+// 		$return .= '</tbody>';
 
-		$return .= '</table>';
-	}
+// 		$return .= '</table>';
+// 	}
 
-	return $return;
-}
-add_shortcode('table', 'shortcode_acf_tablefield');
+// 	return $return;
+// }
+// add_shortcode('table', 'shortcode_acf_tablefield');
 
 /*
-Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
+Create shortcode for displaying Earn Table using CPT and ACF.
 
 Author: Jacktator
 Plugin: Custom Post Type UI 1.6.1
