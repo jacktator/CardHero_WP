@@ -239,58 +239,63 @@ function ch_generate_credit_card_rewards_programs_redemption_table($atts) {
 
 	// extract attributs
 
-	$table = '';
-	// Construct Table Head
-	$table_head = '<table style="width: 100%;">
-	                <thead>
-	                <tr>
-	                <th>Reward Program</th>
-	                <th>Maximum Earn Rate</th>
-	                </tr>
-	                </thead>';
-	$table .= $table_head;
+	if (have_rows('redemption_parnters', $rewards_program)) {
 
-	// Construct Table Body
-	$table .= '<tbody>';
+		$table = '';
+		// Construct Table Head
+		$table_head = '<table style="width: 100%;">
+		                <thead>
+		                <tr>
+		                <th>Reward Program</th>
+		                <th>Maximum Earn Rate</th>
+		                </tr>
+		                </thead>';
+		$table .= $table_head;
 
-	while (have_rows('redemption_parnters', $rewards_program)) {
+		// Construct Table Body
+		$table .= '<tbody>';
 
-		the_row();
+		while (have_rows('redemption_parnters', $rewards_program)) {
 
-		$partner_program = get_sub_field('partner_program');
-		$partner_program_fields = get_field_objects($partner_program->ID);
-		$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
-		if (!$partner_program_company) {
-			$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+			the_row();
+
+			$partner_program = get_sub_field('partner_program');
+			$partner_program_fields = get_field_objects($partner_program->ID);
+			$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
+			if (!$partner_program_company) {
+				$partner_program_company = get_field('provider', $partner_program->ID)->post_title;
+			}
+			$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
+			if (!$partner_program_program) {
+				$partner_program_program = $partner_program->post_title;
+			}
+			$partner_program_unit = get_field('unit', $partner_program->ID);
+			$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
+			$partner_program_points_value = get_field('points_value', $partner_program->ID);
+
+			$redemption_rate = get_sub_field('redemption_rate');
+			$notes = get_sub_field('notes');
+
+			$table .= '<tr>';
+			$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
+			if ($value === 0) {
+				$table .= '<td>Not Available</td>';
+			} else {
+				$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
+			}
+			$table .= '</tr>';
+
 		}
-		$partner_program_program = get_field('program', $partner_program->ID); // Deprecated, use $partner_program->post_title; instead.
-		if (!$partner_program_program) {
-			$partner_program_program = $partner_program->post_title;
-		}
-		$partner_program_unit = get_field('unit', $partner_program->ID);
-		$flexible_points_currency = get_field('flexible_points_currency', $partner_program->ID);
-		$partner_program_points_value = get_field('points_value', $partner_program->ID);
+		// Close Table Body
+		$table .= '</tbody>';
 
-		$redemption_rate = get_sub_field('redemption_rate');
-		$notes = get_sub_field('notes');
+		// Close Table
+		$table .= '</table>';
 
-		$table .= '<tr>';
-		$table .= '<td>' . $partner_program_company . ' - ' . $partner_program_program . '</td>';
-		if ($value === 0) {
-			$table .= '<td>Not Available</td>';
-		} else {
-			$table .= '<td> $1 earns <strong>' . sigFig($redemption_rate * $earn_rate, 4) . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . '</small></td>';
-		}
-		$table .= '</tr>';
-
+		return $table;
+	} else {
+		return 'Reward Program has no Redemption Partner.';
 	}
-	// Close Table Body
-	$table .= '</tbody>';
-
-	// Close Table
-	$table .= '</table>';
-
-	return $table;
 }
 add_shortcode('ch_credit_card_rewards_programs_redemption_table', 'ch_generate_credit_card_rewards_programs_redemption_table');
 
