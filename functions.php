@@ -793,6 +793,7 @@ add_action('wp_head', 'insert_fullstory_code');
 function insert_fullstory_code(){
   ?>
   <script>
+	console.log("WHAHAHAHAHAHA");
 	window['_fs_debug'] = false;
 	window['_fs_host'] = 'fullstory.com';
 	window['_fs_org'] = 'HCQ51';
