@@ -708,6 +708,7 @@ function ch_generate_redemption_table($atts) {
                 <tr>
                 <th colspan="2"> Reward Program via ' . $flexible_partner_program_company . ' - ' . $flexible_partner_program_program . ' </th>
                 <th> Effective Redemption Rate</th>
+                <th> Notes</th>
                 </tr>
                 </thead>';
 
@@ -748,7 +749,8 @@ function ch_generate_redemption_table($atts) {
 				if ($value === 0) {
 					$table .= '<td>Not Available</td>';
 				} else {
-					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (Minimum ' . $minimum . ', increment ' . $increment . '. ' . $notes . '.).<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (Minimum ' . $second_tier_minimum . ', increment ' . $second_tier_increment . '. ' . $second_tier_notes . '.).</small></td>';
+					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (Minimum ' . $minimum . ', increment ' . $increment . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (Minimum ' . $second_tier_minimum . ', increment ' . $second_tier_increment . ').</small></td>';
+					$table .= '<td>' . $notes . '<br/>' . $second_tier_notes . '</td>';
 				}
 				$table .= '</tr>';
 
