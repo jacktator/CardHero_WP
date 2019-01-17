@@ -721,6 +721,8 @@ function ch_generate_redemption_table($atts) {
 				the_row();
 
 				$second_tier_partner_program = get_sub_field('partner_program');
+				$second_tier_minimum = get_sub_field('minimum');
+				$second_tier_increment = get_sub_field('increment');
 				$second_tier_partner_program_fields = get_field_objects($second_tier_partner_program->ID);
 				$second_tier_partner_program_company = get_field('company', $second_tier_partner_program->ID); // Deprecated, use get_field('provider'); instead.
 				if (!$second_tier_partner_program_company) {
@@ -746,7 +748,7 @@ function ch_generate_redemption_table($atts) {
 				if ($value === 0) {
 					$table .= '<td>Not Available</td>';
 				} else {
-					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (' . $notes . ').<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (' . $second_tier_notes . ').</small></td>';
+					$table .= '<td> 1 ' . $base_unit . ' = <strong>' . sigFig($redemption_rate * $second_tier_redemption_rate, 4) . ' ' . $second_tier_partner_program_unit . '.</strong> <br/><small>' . $flexible_partner_program_program . ' 1: ' . $redemption_rate . ' (Minimum ' . $minimum . ', increment ' . $increment . '. ' . $notes . '.).<br/>' . $second_tier_partner_program_unit . ' 1: ' . $second_tier_redemption_rate . ' (Minimum ' . $second_tier_minimum . ', increment ' . $second_tier_increment . '. ' . $second_tier_notes . '.).</small></td>';
 				}
 				$table .= '</tr>';
 
