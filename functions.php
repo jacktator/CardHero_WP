@@ -635,6 +635,7 @@ function ch_generate_redemption_table($atts) {
                 <th>Company</th>
                 <th>Reward Program</th>
                 <th>Redemption Rate</th>
+                <th>Notes</th>
                 </tr>
                 </thead>';
 		$table .= $table_head;
@@ -649,6 +650,8 @@ function ch_generate_redemption_table($atts) {
 			the_row();
 
 			$partner_program = get_sub_field('partner_program');
+			$minimum = get_sub_field('minimum');
+			$increment = get_sub_field('increment');
 			$partner_program_fields = get_field_objects($partner_program->ID);
 			$partner_program_company = get_field('company', $partner_program->ID); // Deprecated, use get_field('provider'); instead.
 			if (!$partner_program_company) {
@@ -669,9 +672,10 @@ function ch_generate_redemption_table($atts) {
 			$table .= '<td>' . $partner_program_company . '</td>';
 			$table .= '<td>' . $partner_program_program . '</td>';
 			if ($value === 0) {
-				$table .= '<td>Not Available</td>';
+				$table .= '<td colspan="2">Not Available</td>';
 			} else {
-				$table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>' . $notes . ' . ' . '</small></td>';
+				$table .= '<td> 1 ' . $base_unit . ' = <strong>' . $redemption_rate . ' ' . $partner_program_unit . '.</strong> <br/><small>Minimum ' . $minimum . ', increment ' . $increment . '. ' . '</small></td>';
+				$table .= '<td>' . $notes . '. ' . '</td>';
 			}
 			$table .= '</tr>';
 
