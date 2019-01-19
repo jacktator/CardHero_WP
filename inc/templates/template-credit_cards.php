@@ -1,6 +1,7 @@
 <?php
 /**
  * Template Name: Credit Card
+ * Template Post Type: credit_cards
  *
  * The template to display Custom Post Type 'Credit Card' page
  *
