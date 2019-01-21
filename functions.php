@@ -796,4 +796,16 @@ function sigFig($value, $digits) {
 	return $answer;
 }
 
+/*
+Hide Featured Image on Single Post Page.
+
+Author: Jacktator
+Reference: https://stackoverflow.com/a/44003967/3381997
+ */
+function ch_hide_feature_image($html, $post_id, $post_image_id) {
+	return is_single() ? '' : $html;
+}
+// add the filter
+add_filter('post_thumbnail_html', 'ch_hide_feature_image', 10, 3);
+
 ?>
