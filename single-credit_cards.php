@@ -10,7 +10,7 @@
  * @since CREDITCARD 1.0
  */
 
-// get_header();
+get_header();
 
 while (have_posts()) {
 	the_post();
