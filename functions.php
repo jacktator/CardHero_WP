@@ -1150,6 +1150,7 @@ function ch_generate_apply_now_button($atts) {
 
 			echo "<pre>";
 			print_r($link_type);
+			echo $link_type;
 			echo "</pre>";
 
 			// Construct Feature Column
