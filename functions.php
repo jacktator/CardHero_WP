@@ -850,7 +850,7 @@ function ch_generate_card_features($atts) {
 
 	$features_row_shortcode .= '[vc_row_inner]';
 
-	$rewards_programs = get_field('features'); // Repeater
+	$features = get_field('features'); // Repeater
 
 	if (have_rows('features')) {
 
@@ -861,7 +861,7 @@ function ch_generate_card_features($atts) {
 
 			the_row();
 
-			// Feth Rewards Program Data
+			// Feth Feature Data
 			$feature_title = get_sub_field('title');
 			$feature_subtitle = get_sub_field('subtitle');
 			$feature_description = get_sub_field('description');
@@ -881,6 +881,55 @@ function ch_generate_card_features($atts) {
 
 }
 add_shortcode('ch_card_features', 'ch_generate_card_features');
+
+/*
+Create shortcode for displaying Credit Card Pros with CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: ThemeREX Addons 11.6.30
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_card_pros]
+ */
+function ch_generate_card_pros($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	$pros_list_shortcode = '';
+
+	$pros_list_shortcode .= '<ul class="trx_addons_list_success">';
+
+	$pros = get_field('pros'); // Repeater
+
+	if (have_rows('pros')) {
+
+		// $pros_objects = get_field_object('features');
+		// $pros_count = count($my_fields);
+
+		while (have_rows('pros')) {
+
+			the_row();
+
+			// Feth Pro Data
+			$pro_html = get_sub_field('pro');
+
+			// Construct Pro List Item
+			$pros_list_shortcode .= '<li>' . $pro_html . '</li>';
+
+		}
+	}
+
+	$pros_list_shortcode .= '</ul>';
+
+	return do_shortcode($pros_list_shortcode);
+
+}
+add_shortcode('ch_card_pros', 'ch_generate_card_pros');
 
 /*
 Hide Featured Image on Single Post Page.
