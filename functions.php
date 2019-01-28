@@ -1150,24 +1150,18 @@ function ch_generate_apply_now_button($atts) {
 			$link_type = get_sub_field('type');
 			$link_note = get_sub_field('notes');
 
-			echo "<pre>";
-			print_r($link_type);
-			echo "</pre>";
-
 			if (strpos($link_type, "referral") != false) {
 				$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now</span></span></a>';
 			} else {
 				$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now^</span></span></a>';
 			}
 
-			echo "<pre>";
-			print_r($button_html);
-			echo "</pre>";
+			echo $button_html;
 
 		}
 	}
 
-	return $button_html;
+	// return $button_html;
 
 }
 add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button');
