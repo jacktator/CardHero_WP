@@ -855,7 +855,7 @@ function ch_generate_card_features($atts) {
 	if (have_rows('features')) {
 
 		// $features_objects = get_field_object('features');
-		// $features_count = count($my_fields);
+		// $features_count = count($features_objects);
 
 		while (have_rows('features')) {
 
@@ -909,7 +909,7 @@ function ch_generate_card_cons($atts) {
 	if (have_rows('cons')) {
 
 		// $cons_objects = get_field_object('features');
-		// $cons_count = count($my_fields);
+		// $cons_count = count($cons_objects);
 
 		while (have_rows('cons')) {
 
@@ -958,7 +958,7 @@ function ch_generate_card_pros($atts) {
 	if (have_rows('pros')) {
 
 		// $pros_objects = get_field_object('features');
-		// $pros_count = count($my_fields);
+		// $pros_count = count($pros_objects);
 
 		while (have_rows('pros')) {
 
@@ -1113,6 +1113,77 @@ function ch_generate_eligibility_table($atts) {
 
 }
 add_shortcode('ch_eligibility_table', 'ch_generate_eligibility_table');
+
+
+/*
+Create shortcode for displaying Apply Now button with CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: ThemeREX Addons 11.6.30
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_apply_now_button]
+ */
+function ch_generate_apply_now_button($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	$links = get_field('links'); // Repeater
+
+	if (have_rows('links')) {
+
+		// $links_objects = get_field_object('links');
+		// $links_count = count($links_objects);
+
+		while (have_rows('links')) {
+
+			the_row();
+
+			// Feth Feature Data
+			$link_link = get_sub_field('link');
+			$link_type = get_sub_field('type');
+			$link_note = get_sub_field('notes');
+
+			// Construct Feature Column
+			return '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . ($link_type=="referral") ? "Apply Now^" : "Apply Now" . '</span></span></a>';
+
+		}
+	}
+
+} 
+add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button')
+
+
+
+/*
+Create shortcode for displaying Apply Now button with CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: ThemeREX Addons 11.6.30
+Plugin: Alike - WordPress Custom Post Comparison 2.1.3
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_compare_button]
+ */
+function ch_generate_compare_button($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="'. $post_id .'" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_link() . '" title="Add To Compare">
+Add To Compare</a>';
+
+} 
+add_shortcode('ch_compare_button', 'ch_generate_compare_button')
 
 /*
 Hide Featured Image on Single Post Page.
