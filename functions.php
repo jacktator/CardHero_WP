@@ -1134,30 +1134,30 @@ function ch_generate_apply_now_button($atts) {
 
 	$button_html = '';
 
-	$links = get_field('links'); // Repeater
+	// $links = get_field('links'); // Repeater
 
-	if (have_rows('links')) {
+	// if (have_rows('links')) {
 
-		// $links_objects = get_field_object('links');
-		// $links_count = count($links_objects);
+	// 	// $links_objects = get_field_object('links');
+	// 	// $links_count = count($links_objects);
 
-		while (have_rows('links')) {
+	// 	while (have_rows('links')) {
 
-			the_row();
+	// 		the_row();
 
-			// Feth Feature Data
-			$link_link = get_sub_field('link');
-			$link_type = get_sub_field('type');
-			$link_note = get_sub_field('notes');
+	// 		// Feth Feature Data
+	// 		$link_link = get_sub_field('link');
+	// 		$link_type = get_sub_field('type');
+	// 		$link_note = get_sub_field('notes');
 
-			if (strpos($link_type, "referral") != false) {
-				$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now</span></span></a>';
-			} else {
-				$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now^</span></span></a>';
-			}
+	// 		if (strpos($link_type, "referral") != false) {
+	// 			$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now</span></span></a>';
+	// 		} else {
+	// 			$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now^</span></span></a>';
+	// 		}
 
-		}
-	}
+	// 	}
+	// }
 
 	return $button_html;
 
