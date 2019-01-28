@@ -145,7 +145,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 	$rewards_programs_tabs = "";
 
 	// Construct Tabs
-	$rewards_programs_tabs .= do_shortcode('[cq_vc_tabs rotatetabs="0"]');
+	$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
 	$rewards_programs = get_field('rewards_programs'); // Repeater
 
@@ -160,7 +160,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 			$rewards_program_unit = get_field('unit', $rewards_program->ID);
 
 			// Construct Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]');
+			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
 			// Find the Max Earn Rate
 			if (have_rows('earn_rates')) {
@@ -199,7 +199,7 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 				// Close Table
 				$rewards_programs_table .= '</table>';
 
-				// $rewards_programs_table = do_shortcode('[ch_generate_credit_card_rewards_programs_earn_table rewards_program="' . $rewards_program->ID .'"]');
+				// $rewards_programs_table = '[ch_generate_credit_card_rewards_programs_earn_table rewards_program="' . $rewards_program->ID .'"]';
 
 				// Return Table
 				$rewards_programs_tabs .= $rewards_programs_table;
@@ -207,14 +207,14 @@ function ch_generate_credit_card_rewards_programs_earn_tabs($atts) {
 			}
 
 			// Close Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[/cq_vc_tab_item]');
+			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
 		}
 	}
 
 	// Close Tabs
-	$rewards_programs_tabs .= do_shortcode('[/cq_vc_tabs]');
+	$rewards_programs_tabs .= '[/cq_vc_tabs]';
 
-	return $rewards_programs_tabs;
+	return do_shortcode($rewards_programs_tabs);
 }
 add_shortcode('ch_credit_card_rewards_programs_earn_tabs', 'ch_generate_credit_card_rewards_programs_earn_tabs');
 
@@ -292,7 +292,7 @@ function ch_generate_credit_card_rewards_programs_redemption_table($atts) {
 		// Close Table
 		$table .= '</table>';
 
-		return $table;
+		return do_shortcode($table);
 	} else {
 		return 'Reward Program has no Redemption Partner.';
 	}
@@ -328,7 +328,7 @@ function ch_generate_credit_card_rewards_programs_redemption_tabs($atts) {
 		$rewards_programs_tabs = "";
 
 		// Construct Tabs
-		$rewards_programs_tabs .= do_shortcode('[cq_vc_tabs rotatetabs="0"]');
+		$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
 		while (have_rows('rewards_programs')) {
 
@@ -356,22 +356,22 @@ function ch_generate_credit_card_rewards_programs_redemption_tabs($atts) {
 			}
 
 			// Construct Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]');
+			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
-			$rewards_programs_table = do_shortcode('[ch_credit_card_rewards_programs_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]');
+			$rewards_programs_table = '[ch_credit_card_rewards_programs_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
 
 			// Return Table
 			$rewards_programs_tabs .= $rewards_programs_table;
 
 			// Close Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[/cq_vc_tab_item]');
+			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
 
 		}
 
 		// Close Tabs
-		$rewards_programs_tabs .= do_shortcode('[/cq_vc_tabs]');
+		$rewards_programs_tabs .= '[/cq_vc_tabs]';
 
-		return $rewards_programs_tabs;
+		return do_shortcode($rewards_programs_tabs);
 	} else {
 		return "Error: Rewards Programs is empty.";
 	}
@@ -517,7 +517,7 @@ function ch_generate_credit_card_rewards_programs_more_redemption_table($atts) {
 		// Close Table
 		$table .= '</table>';
 
-		return $table;
+		return do_shortcode($table);
 	} else {
 		return 'Reward Program has no Redemption Partner.';
 	}
@@ -553,7 +553,7 @@ function ch_generate_credit_card_rewards_programs_more_redemption_tabs($atts) {
 		$rewards_programs_tabs = "";
 
 		// Construct Tabs
-		$rewards_programs_tabs .= do_shortcode('[cq_vc_tabs rotatetabs="0"]');
+		$rewards_programs_tabs .= '[cq_vc_tabs rotatetabs="0"]';
 
 		while (have_rows('rewards_programs')) {
 
@@ -581,22 +581,22 @@ function ch_generate_credit_card_rewards_programs_more_redemption_tabs($atts) {
 			}
 
 			// Construct Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]');
+			$rewards_programs_tabs .= '[cq_vc_tab_item tabtitle="' . $rewards_program->post_title . '"]';
 
-			$rewards_programs_table = do_shortcode('[ch_credit_card_rewards_programs_more_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]');
+			$rewards_programs_table = '[ch_credit_card_rewards_programs_more_redemption_table earn_rate="' . $max_earn_rate . '" rewards_program="' . $rewards_program->ID . '"]';
 
 			// Return Table
 			$rewards_programs_tabs .= $rewards_programs_table;
 
 			// Close Single Tab Item
-			$rewards_programs_tabs .= do_shortcode('[/cq_vc_tab_item]');
+			$rewards_programs_tabs .= '[/cq_vc_tab_item]';
 
 		}
 
 		// Close Tabs
-		$rewards_programs_tabs .= do_shortcode('[/cq_vc_tabs]');
+		$rewards_programs_tabs .= '[/cq_vc_tabs]';
 
-		return $rewards_programs_tabs;
+		return do_shortcode($rewards_programs_tabs);
 	} else {
 		return "Error: Rewards Programs is empty.";
 	}
@@ -770,7 +770,7 @@ function ch_generate_redemption_table($atts) {
 		$table .= '</table>';
 
 		// Return Table
-		return $table;
+		return do_shortcode($table);
 	} else {
 		return 'redemption_parnters is empty.';
 	}
@@ -816,11 +816,9 @@ function ch_generate_card_image($atts) {
 	$featured_image_id = get_post_thumbnail_id($post_id);
 	$credit_card_title = get_the_title($post_id);
 
-	$card_image_shortcode = do_shortcode('[cq_vc_shadowcard image="' . $featured_image_id . '" title="' . $credit_card_title . '" tolerance="12"]');
+	$card_image_shortcode = '[cq_vc_shadowcard image="' . $featured_image_id . '" title="' . $credit_card_title . '" tolerance="12"]';
 
-	$card_image_html = do_shortcode($card_image_shortcode);
-
-	return $card_image_html;
+	return do_shortcode($card_image_shortcode);
 
 }
 add_shortcode('ch_card_image', 'ch_generate_card_image');
