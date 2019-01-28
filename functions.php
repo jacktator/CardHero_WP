@@ -775,7 +775,6 @@ function ch_generate_redemption_table($atts) {
 		return 'redemption_parnters is empty.';
 	}
 }
-add_shortcode('ch_redemption_table', 'ch_generate_redemption_table');
 
 /*
 Trim Number to 4 Significant Digits.
@@ -795,6 +794,35 @@ function sigFig($value, $digits) {
 	$answer = round($value, $decimalPlaces);
 	return $answer;
 }
+
+/*
+Create shortcode for displaying Redemption Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_redemption_table] // Meaning Earning 2 Credit Card Points per Dollar
+ */
+function ch_generate_card_image($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	$featured_image_id = get_post_thumbnail_id($post_id);
+	$credit_card_title = get_the_title($post_id);
+
+	$card_image_shortcode = '[cq_vc_shadowcard image="' . $featured_image_id . '" title="' . $credit_card_title . '" tolerance="12"]';
+
+	$card_image_html = do_shortcode($card_image_shortcode);
+
+	return $card_image_html;
+
+}
+add_shortcode('ch_card_image', 'ch_generate_card_image');
 
 /*
 Hide Featured Image on Single Post Page.

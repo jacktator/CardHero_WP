@@ -63,7 +63,7 @@
  Custom CSS to adjust the 'Compare' button for Alike plugin
  Author:         Jacktator
  Author URI:     https://jacktator.com/
- Theme:         Credit Card
+ Theme:			Credit Card
 */
 @media (max-width: 767px) {
 	.sc_layouts_column {
@@ -71,3 +71,13 @@
 	}
 }
 
+/*
+ Custom CSS to adjust the 'Meu Dropdown' corner tail
+ Author: 		Jacktator
+ Author URI: 	https://jacktator.com/
+ Theme:			Credit Card
+*/
+/*.top_panel_default .sc_layouts_menu_popup .sc_layouts_menu_nav,
+.top_panel_default .sc_layouts_menu_nav > li ul {
+	background-color: #8DD4FC;
+}*/

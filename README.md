@@ -18,3 +18,7 @@ This is a child theme for CardHero.
 This is a template. Open it, change the logo to client's logo.
 
 # Remove the remove-before-usage folder
+
+# Note
+
+theme-specific folder has code that needs to be replaced in parent folder
