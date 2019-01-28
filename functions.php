@@ -981,6 +981,83 @@ function ch_generate_card_pros($atts) {
 add_shortcode('ch_card_pros', 'ch_generate_card_pros');
 
 /*
+Create shortcode for displaying Maximum Earn Rate Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage:  [ch_interest_fee_table] // Generate the Interest & Fee Table
+ */
+function ch_generate_interest_fee_table($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	// extract attributs
+
+	$table = '<table style="width: 100%;">
+	<tbody>
+	<tr>
+	<th style="width: 30%;">Product Name</th>
+	<td>' . the_title() . '</td>
+	</tr>
+	<tr>
+	<th>Card Image</th>
+	<td>[ch_card_image]</td>
+	</tr>
+	<tr>
+	<th>Card Network</th>
+	<td>' . the_field('network') . '</td>
+	</tr>
+	<tr>
+	<th>Card Issuer</th>
+	<td>' . the_field('issuer') . '</td>
+	</tr>
+	<tr>
+	<th>Annual fee</th>
+	<td><strong>$' . the_field('annual_fee') . ' p.a.</strong></td>
+	</tr>
+	<tr>
+	<th>Purchase Interest Rate</th>
+	<td><strong>' . the_field('purchase_rate') . '% p.a</strong></td>
+	</tr>';
+
+	if (the_field(cash_advance) == 'Available') {
+		$table .=
+			'<tr>
+		<th>Cash Advance Interest</th>
+		<td><strong>Not Available</strong></td>
+		</tr>';
+	} else {
+		$table .=
+		'<tr>
+		<th>Cash Advance Interest</th>
+		<td><strong>' . the_field('cash_advance_rate') . '% p.a.</strong></td>
+		</tr>';
+	}
+
+	$table .=
+	'<tr>
+	<th>Interest Free Period</th>
+	<td>Up to ' . the_field('interest_free') . ' days on purchases</td>
+	</tr>
+	<tr>
+	<th>Foreign Transaction Fee</th>
+	<td><strong>' . the_field('foreign_currency_conversion_fee') . '%</strong>, using <strong>' . the_field('foreign_exchange_provider') . '</strong>.</td>
+	</tr>
+	</tbody>
+	</table>';
+
+	return do_shortcode($table);
+
+}
+add_shortcode('ch_interest_fee_table', 'ch_generate_interest_fee_table');
+
+/*
 Hide Featured Image on Single Post Page.
 
 Author: Jacktator
