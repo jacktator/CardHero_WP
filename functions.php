@@ -1003,22 +1003,30 @@ function ch_generate_interest_fee_table($atts) {
 	<tbody>
 	<tr>
 	<th style="width: 30%;">Product Name</th>
-	<td>' . the_title() . '</td>
+	<td>' . get_the_title() . '</td>
 	</tr>
 	<tr>
 	<th>Card Image</th>
 	<td>[ch_card_image]</td>
 	</tr>
 	<tr>
+	<th>Card Network</th>
+	<td>' . get_field('network') . '</td>
+	</tr>
+	<tr>
+	<th>Card Issuer</th>
+	<td>' . get_field('issuer') . '</td>
+	</tr>
+	<tr>
 	<th>Annual fee</th>
-	<td><strong>$' . the_field('annual_fee') . ' p.a.</strong></td>
+	<td><strong>$' . get_field('annual_fee') . ' p.a.</strong></td>
 	</tr>
 	<tr>
 	<th>Purchase Interest Rate</th>
-	<td><strong>' . the_field('purchase_rate') . '% p.a</strong></td>
+	<td><strong>' . get_field('purchase_rate') . '% p.a</strong></td>
 	</tr>';
 
-	if (the_field('cash_advance') == 'Available') {
+	if (get_field('cash_advance') == 'Available') {
 		$table .=
 			'<tr>
 		<th>Cash Advance Interest</th>
@@ -1028,18 +1036,18 @@ function ch_generate_interest_fee_table($atts) {
 		$table .=
 		'<tr>
 		<th>Cash Advance Interest</th>
-		<td><strong>' . the_field('cash_advance_rate') . '% p.a.</strong></td>
+		<td><strong>' . get_field('cash_advance_rate') . '% p.a.</strong></td>
 		</tr>';
 	}
 
 	$table .=
 	'<tr>
 	<th>Interest Free Period</th>
-	<td>Up to ' . the_field('interest_free') . ' days on purchases</td>
+	<td>Up to ' . get_field('interest_free') . ' days on purchases</td>
 	</tr>
 	<tr>
 	<th>Foreign Transaction Fee</th>
-	<td><strong>' . the_field('foreign_currency_conversion_fee') . '%</strong>, using <strong>' . the_field('foreign_exchange_provider') . '</strong>.</td>
+	<td><strong>' . get_field('foreign_currency_conversion_fee') . '%</strong>, using <strong>' . get_field('foreign_exchange_provider') . '</strong>.</td>
 	</tr>
 	</tbody>
 	</table>';
