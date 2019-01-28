@@ -1160,9 +1160,6 @@ function ch_generate_apply_now_button($atts) {
 				$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">Apply Now^</span></span></a>';
 			}
 
-			// Construct Feature Column
-			$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . strpos($link_type, "referral") != false ? "Apply Now^" : "Apply Now" . '</span></span></a>';
-
 		}
 	}
 
