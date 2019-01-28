@@ -1026,7 +1026,7 @@ function ch_generate_interest_fee_table($atts) {
 	<td><strong>' . the_field('purchase_rate') . '% p.a</strong></td>
 	</tr>';
 
-	if (the_field(cash_advance) == 'Available') {
+	if (the_field('cash_advance') == 'Available') {
 		$table .=
 			'<tr>
 		<th>Cash Advance Interest</th>
