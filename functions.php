@@ -797,13 +797,14 @@ function sigFig($value, $digits) {
 }
 
 /*
-Create shortcode for displaying Redemption Table using CPT and ACF.
+Create shortcode for displaying Credit Card Image using ShadowCard CPT and ACF.
 
 Author: Jacktator
 Plugin: Custom Post Type UI 1.6.1
 Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: Visual Composer Extensions All In One 3.4.9.3
 Reference: https://wordpress.stackexchange.com/a/291525/134082
-Usage: [ch_redemption_table] // Meaning Earning 2 Credit Card Points per Dollar
+Usage: [ch_card_image]
  */
 function ch_generate_card_image($atts) {
 
@@ -822,6 +823,64 @@ function ch_generate_card_image($atts) {
 
 }
 add_shortcode('ch_card_image', 'ch_generate_card_image');
+
+/*
+Create shortcode for displaying Credit Card Features using ShadowCard CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: ThemeREX Addons 11.6.30
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_card_features]
+ */
+function ch_generate_card_features($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	$features_row_shortcode = '';
+
+	// $features_row_shortcode .= '[vc_row css=".vc_custom_1546576317270{background-color: #eaeaea !important;}"][vc_column]';
+
+	// $features_row_shortcode .= '[vc_empty_space alter_height="medium" hide_on_mobile=""]';
+
+	$features_row_shortcode .= '[vc_row_inner]';
+
+	$rewards_programs = get_field('features'); // Repeater
+
+	if (have_rows('features')) {
+
+		// $features_objects = get_field_object('features');
+		// $features_count = count($my_fields);
+
+		while (have_rows('features')) {
+
+			the_row();
+
+			// Feth Rewards Program Data
+			$feature_title = get_sub_field('title');
+			$feature_subtitle = get_sub_field('subtitle');
+			$feature_description = get_sub_field('description');
+
+			// Construct Feature Column
+			$features_row_shortcode .= '[vc_column_inner width="1/4"][trx_sc_title title_style="default" title_align="center" title="' . $feature_title . '" subtitle="' . $feature_subtitle . '"][/vc_column_inner]';
+
+		}
+	}
+	$features_row_shortcode .= '[/vc_row_inner]';
+
+	// $features_row_shortcode .= '[vc_empty_space alter_height="medium" hide_on_mobile=""]';
+
+	// $features_row_shortcode .= '[/vc_column][/vc_row][vc_row]';
+
+	return do_shortcode($features_row_shortcode);
+
+}
+add_shortcode('ch_card_features', 'ch_generate_card_features');
 
 /*
 Hide Featured Image on Single Post Page.
