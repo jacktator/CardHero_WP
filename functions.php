@@ -1161,7 +1161,7 @@ function ch_generate_apply_now_button($atts) {
 		}
 	}
 
-	// return $button_html;
+	return "";
 
 }
 add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button');
@@ -1185,7 +1185,7 @@ function ch_generate_compare_button($atts) {
 		'format_value' => true, // Default
 	), $atts));
 
-	echo '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="' . $post_id . '" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_link() . '" title="Add To Compare">
+	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="' . $post_id . '" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_link() . '" title="Add To Compare">
 Add To Compare</a>';
 
 }
