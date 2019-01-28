@@ -1114,7 +1114,6 @@ function ch_generate_eligibility_table($atts) {
 }
 add_shortcode('ch_eligibility_table', 'ch_generate_eligibility_table');
 
-
 /*
 Create shortcode for displaying Apply Now button with CPT and ACF.
 
@@ -1150,15 +1149,13 @@ function ch_generate_apply_now_button($atts) {
 			$link_note = get_sub_field('notes');
 
 			// Construct Feature Column
-			return '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . ($link_type=="referral") ? "Apply Now^" : "Apply Now" . '</span></span></a>';
+			return '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . ($link_type == "referral") ? "Apply Now^" : "Apply Now" . '</span></span></a>';
 
 		}
 	}
 
-} 
-add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button')
-
-
+}
+add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button');
 
 /*
 Create shortcode for displaying Apply Now button with CPT and ACF.
@@ -1179,11 +1176,11 @@ function ch_generate_compare_button($atts) {
 		'format_value' => true, // Default
 	), $atts));
 
-	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="'. $post_id .'" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_link() . '" title="Add To Compare">
+	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="' . $post_id . '" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_link() . '" title="Add To Compare">
 Add To Compare</a>';
 
-} 
-add_shortcode('ch_compare_button', 'ch_generate_compare_button')
+}
+add_shortcode('ch_compare_button', 'ch_generate_compare_button');
 
 /*
 Hide Featured Image on Single Post Page.
