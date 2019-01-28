@@ -1163,7 +1163,7 @@ function ch_generate_apply_now_button($atts) {
 		}
 	}
 
-	return $$button_html;
+	return $button_html;
 
 }
 add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button');
