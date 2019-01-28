@@ -883,6 +883,55 @@ function ch_generate_card_features($atts) {
 add_shortcode('ch_card_features', 'ch_generate_card_features');
 
 /*
+Create shortcode for displaying Credit Card Cons with CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Plugin: ThemeREX Addons 11.6.30
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage: [ch_card_cons]
+ */
+function ch_generate_card_cons($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	$cons_list_shortcode = '';
+
+	$cons_list_shortcode .= '<ul class="trx_addons_list_success">';
+
+	$cons = get_field('cons'); // Repeater
+
+	if (have_rows('cons')) {
+
+		// $cons_objects = get_field_object('features');
+		// $cons_count = count($my_fields);
+
+		while (have_rows('cons')) {
+
+			the_row();
+
+			// Feth Pro Data
+			$pro_html = get_sub_field('pro');
+
+			// Construct Pro List Item
+			$cons_list_shortcode .= '<li>' . $pro_html . '</li>';
+
+		}
+	}
+
+	$cons_list_shortcode .= '</ul>';
+
+	return $cons_list_shortcode;
+
+}
+add_shortcode('ch_card_cons', 'ch_generate_card_cons');
+
+/*
 Create shortcode for displaying Credit Card Pros with CPT and ACF.
 
 Author: Jacktator
@@ -926,7 +975,7 @@ function ch_generate_card_pros($atts) {
 
 	$pros_list_shortcode .= '</ul>';
 
-	return do_shortcode($pros_list_shortcode);
+	return $pros_list_shortcode;
 
 }
 add_shortcode('ch_card_pros', 'ch_generate_card_pros');
