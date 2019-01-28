@@ -1050,14 +1050,6 @@ function ch_generate_interest_fee_table($atts) {
 	<td><strong>' . get_field('foreign_currency_conversion_fee') . '%</strong>, using <strong>' . get_field('foreign_exchange_provider') . '</strong>.</td>
 	</tr>';
 
-	if (get_field('additional_cardholder')) {
-		$table .= '
-			<tr>
-			<th>Additional Cardholder</th>
-			<td>Up to <strong>' . get_field('additional_cardholder_number') . '%</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
-			</tr>'
-	}
-
 	$table .= '
 	</tbody>
 	</table>';
@@ -1098,12 +1090,22 @@ function ch_generate_eligibility_table($atts) {
 			</tr>
 			<tr>
 			<th>Age Requirement</th>
-			<td>' . get_field('minimum_age') . ' years old' . empty(get_field('maximum_age')) ? 'to ' . get_field('maximum_age') . ' years old.' : '.'. '</td>
+			<td>' . get_field('minimum_age') . ' years old' . empty(get_field('maximum_age')) ? 'to ' . get_field('maximum_age') . ' years old.' : '.' . '</td>
 			</tr>
 			<tr>
 			<th>Residency Requirement</th>
-			<td>' . get_field('residency') .'</td>
-			</tr>
+			<td>' . get_field('residency') . '</td>
+			</tr>';
+
+	if (get_field('additional_cardholder')) {
+		$table .= '
+			<tr>
+			<th>Additional Cardholder</th>
+			<td>Up to <strong>' . get_field('additional_cardholder_number') . '%</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
+			</tr>';
+	}
+
+	$table .= '
 			</tbody>
 			</table>';
 
