@@ -1002,7 +1002,7 @@ function ch_generate_interest_fee_table($atts) {
 	$table = '<table style="width: 100%;">
 	<tbody>
 	<tr>
-	<th style="width: 30%;">Product Name</th>
+	<th style="width: 25%;">Product Name</th>
 	<td>' . get_the_title() . '</td>
 	</tr>
 	<tr>
@@ -1010,15 +1010,23 @@ function ch_generate_interest_fee_table($atts) {
 	<td>[ch_card_image]</td>
 	</tr>
 	<tr>
+	<th>Card Network</th>
+	<td>' . get_field('network')->post_title . '</td>
+	</tr>
+	<tr>
+	<th>Card Issuer</th>
+	<td>' . get_field('issuer')->post_title . '</td>
+	</tr>
+	<tr>
 	<th>Annual fee</th>
-	<td><strong>$' . get_field('annual_fee') . ' p.a.</strong></td>
+	<td><strong>$' . get_field('annual_fee') . '</strong> p.a.</td>
 	</tr>
 	<tr>
 	<th>Purchase Interest Rate</th>
-	<td><strong>' . get_field('purchase_rate') . '% p.a</strong></td>
+	<td><strong>' . get_field('purchase_rate') . '%</strong> p.a</td>
 	</tr>';
 
-	if (get_field('cash_advance') == 'Available') {
+	if (get_field('cash_advance') != 'Available') {
 		$table .=
 			'<tr>
 		<th>Cash Advance Interest</th>
@@ -1040,7 +1048,17 @@ function ch_generate_interest_fee_table($atts) {
 	<tr>
 	<th>Foreign Transaction Fee</th>
 	<td><strong>' . get_field('foreign_currency_conversion_fee') . '%</strong>, using <strong>' . get_field('foreign_exchange_provider') . '</strong>.</td>
-	</tr>
+	</tr>';
+
+	if (get_field('additional_cardholder')) {
+		$table .= '
+			<tr>
+			<th>Additional Cardholder</th>
+			<td>Up to <strong>' . get_field('additional_cardholder_number') . '%</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
+			</tr>'
+	}
+
+	$table .= '
 	</tbody>
 	</table>';
 
@@ -1048,6 +1066,51 @@ function ch_generate_interest_fee_table($atts) {
 
 }
 add_shortcode('ch_interest_fee_table', 'ch_generate_interest_fee_table');
+
+/*
+Create shortcode for displaying Eligibility Table using CPT and ACF.
+
+Author: Jacktator
+Plugin: Custom Post Type UI 1.6.1
+Plugin: Advanced Custom Fields PRO 5.7.9
+Reference: https://wordpress.stackexchange.com/a/291525/134082
+Usage:  [ch_eligibility_table] // Generate the Interest & Fee Table
+ */
+function ch_generate_eligibility_table($atts) {
+
+	// extract attributs
+	extract(shortcode_atts(array(
+		'post_id' => false, // Default
+		'format_value' => true, // Default
+	), $atts));
+
+	// extract attributs
+
+	$table = '<table style="width: 100%;">
+			<tbody>
+			<tr>
+			<th style="width: 25%;">Minimum Income</th>
+			<td>$' . get_field('recommended_minimum_income') . ' p.a. ' . empty(get_field('minimum_income')) ? 'Reports indicates <small>$' . get_field('minimum_income') . '</small> p.a with good credit rating can be approaved.' : '' . '</td>
+			</tr>
+			<tr>
+			<th>Minimum Credit Limit</th>
+			<td>$' . get_field('min_credit_limit') . '</td>
+			</tr>
+			<tr>
+			<th>Age Requirement</th>
+			<td>' . get_field('minimum_age') . ' years old' . empty(get_field('maximum_age')) ? 'to ' . get_field('maximum_age') . ' years old.' : '.'. '</td>
+			</tr>
+			<tr>
+			<th>Residency Requirement</th>
+			<td>' . get_field('residency') .'</td>
+			</tr>
+			</tbody>
+			</table>';
+
+	return do_shortcode($table);
+
+}
+add_shortcode('ch_eligibility_table', 'ch_generate_eligibility_table');
 
 /*
 Hide Featured Image on Single Post Page.
