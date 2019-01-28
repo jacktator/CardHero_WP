@@ -1010,14 +1010,6 @@ function ch_generate_interest_fee_table($atts) {
 	<td>[ch_card_image]</td>
 	</tr>
 	<tr>
-	<th>Card Network</th>
-	<td>' . the_field('network') . '</td>
-	</tr>
-	<tr>
-	<th>Card Issuer</th>
-	<td>' . the_field('issuer') . '</td>
-	</tr>
-	<tr>
 	<th>Annual fee</th>
 	<td><strong>$' . the_field('annual_fee') . ' p.a.</strong></td>
 	</tr>
