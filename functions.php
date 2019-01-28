@@ -1132,6 +1132,8 @@ function ch_generate_apply_now_button($atts) {
 		'format_value' => true, // Default
 	), $atts));
 
+	$button_html = '';
+
 	$links = get_field('links'); // Repeater
 
 	if (have_rows('links')) {
@@ -1150,14 +1152,15 @@ function ch_generate_apply_now_button($atts) {
 
 			echo "<pre>";
 			print_r($link_type);
-			echo $link_type;
 			echo "</pre>";
 
 			// Construct Feature Column
-			return '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . strpos($link_type, "referral") ? "Apply Now^" : "Apply Now" . '</span></span></a>';
+			$button_html .= '<a href="' . $link_link . '" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left"><span class="sc_button_text"><span class="sc_button_title">' . strpos($link_type, "referral") ? "Apply Now^" : "Apply Now" . '</span></span></a>';
 
 		}
 	}
+
+	return $$button_html;
 
 }
 add_shortcode('ch_apply_now_button', 'ch_generate_apply_now_button');
