@@ -902,7 +902,7 @@ function ch_generate_card_cons($atts) {
 
 	$cons_list_shortcode = '';
 
-	$cons_list_shortcode .= '<ul class="trx_addons_list_success">';
+	$cons_list_shortcode .= '<ul class="trx_addons_list_error">';
 
 	$cons = get_field('cons'); // Repeater
 
@@ -916,7 +916,7 @@ function ch_generate_card_cons($atts) {
 			the_row();
 
 			// Feth Pro Data
-			$pro_html = get_sub_field('pro');
+			$pro_html = get_sub_field('con');
 
 			// Construct Pro List Item
 			$cons_list_shortcode .= '<li>' . $pro_html . '</li>';
