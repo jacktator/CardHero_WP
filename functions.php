@@ -1082,7 +1082,7 @@ function ch_generate_eligibility_table($atts) {
 			<tbody>
 			<tr>
 			<th style="width: 25%;">Minimum Income</th>
-			<td>$' . get_field('recommended_minimum_income') . ' p.a. ' . empty(get_field('minimum_income')) ? 'Reports indicates <small>$' . get_field('minimum_income') . '</small> p.a with good credit rating can be approaved.' : '' . '</td>
+			<td>$' . get_field('recommended_minimum_income') . ' p.a. ' . (empty(get_field('minimum_income')) ? ('Reports indicates <small>$' . get_field('minimum_income') . '</small> p.a with good credit rating can be approaved.') : '') . '</td>
 			</tr>
 			<tr>
 			<th>Minimum Credit Limit</th>
@@ -1101,7 +1101,7 @@ function ch_generate_eligibility_table($atts) {
 		$table .= '
 			<tr>
 			<th>Additional Cardholder</th>
-			<td>Up to <strong>' . get_field('additional_cardholder_number') . '%</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
+			<td>Up to <strong>' . get_field('additional_cardholder_number') . '</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
 			</tr>';
 	}
 
@@ -1183,8 +1183,8 @@ function ch_generate_compare_button($atts) {
 		'format_value' => true, // Default
 	), $atts));
 
-	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="' . $post_id . '" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_permalink() . '" title="Add To Compare">
-Add To Compare</a>';
+	return '<a href="#" class="sc_button color_style_default sc_button_default sc_button_size_normal sc_button_icon_left alike-button alike-button-style" data-post-id="' . $post_id . '" data-post-title="' . get_the_title() . '" data-post-thumb="' . get_the_post_thumbnail_url() . '" data-post-link="' . get_post_permalink() . '" title="Compare">
+Compare</a>';
 
 }
 add_shortcode('ch_compare_button', 'ch_generate_compare_button');
