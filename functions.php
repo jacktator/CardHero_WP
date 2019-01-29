@@ -1116,9 +1116,11 @@ function ch_generate_eligibility_table($atts) {
 
 	$table .= '
 			<tr>
-			<th>Residency Requirement</th>
-			<td>' . foreach(get_field('residency') as $value){ echo $value; } . '</td>
-			</tr>';
+			<th>Residency Requirement</th>';
+	foreach (get_field('residency') as $value) {
+		$table .= $value . '<br/>';
+	}
+	$table .= '</tr>';
 
 	if (get_field('additional_cardholder')) {
 		$table .= '
