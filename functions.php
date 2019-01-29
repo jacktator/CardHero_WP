@@ -1079,19 +1079,42 @@ function ch_generate_eligibility_table($atts) {
 	// extract attributs
 
 	$table = '<table style="width: 100%;">
-			<tbody>
-			<tr>
+			<tbody>';
+
+	if (empty(get_field('minimum_income')) == false) {
+		$table .=
+		'<tr>
 			<th style="width: 25%;">Minimum Income</th>
-			<td>$' . get_field('recommended_minimum_income') . ' p.a. ' . (empty(get_field('minimum_income')) ? ('Reports indicates <small>$' . get_field('minimum_income') . '</small> p.a with good credit rating can be approaved.') : '') . '</td>
-			</tr>
-			<tr>
+			<td>$' . get_field('recommended_minimum_income') . ' p.a. </td>
+			</tr>';
+	} else {
+		$table .=
+		'<tr>
+			<th style="width: 25%;">Minimum Income</th>
+			<td>$' . get_field('recommended_minimum_income') . ' p.a. <small>Reports indicate a $' . get_field('minimum_income') . '</small> p.a with good credit rating can be approaved.</td>
+			</tr>';
+	}
+
+	$table .= '<tr>
 			<th>Minimum Credit Limit</th>
 			<td>$' . get_field('min_credit_limit') . '</td>
-			</tr>
-			<tr>
-			<th>Age Requirement</th>
-			<td>' . get_field('minimum_age') . ' years old' . empty(get_field('maximum_age')) ? 'to ' . get_field('maximum_age') . ' years old.' : '.' . '</td>
-			</tr>
+			</tr>';
+
+	if (empty(get_field('maximum_age')) == false) {
+		$table .=
+		'<tr>
+			<th style="width: 25%;">Age Requirement</th>
+			<td>' . get_field('minimum_age') . ' years old.</td>
+			</tr>';
+	} else {
+		$table .=
+		'<tr>
+			<th style="width: 25%;">Age Requirement</th>
+			<td>' . get_field('minimum_age') . ' to ' . get_field('maximum_age') . ' years old.</td>
+			</tr>';
+	}
+
+	$table .= '
 			<tr>
 			<th>Residency Requirement</th>
 			<td>' . get_field('residency') . '</td>
