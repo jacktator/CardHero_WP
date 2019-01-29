@@ -1117,14 +1117,14 @@ function ch_generate_eligibility_table($atts) {
 	$table .= '
 			<tr>
 			<th>Residency Requirement</th>
-			<td>' . get_field('residency') . '</td>
+			<td>' . foreach(get_field('residency') as $value){ echo $value; } . '</td>
 			</tr>';
 
 	if (get_field('additional_cardholder')) {
 		$table .= '
 			<tr>
 			<th>Additional Cardholder</th>
-			<td>Up to <strong>' . get_field('additional_cardholder_number') . '</strong>, for $<strong>' . get_field('additional_cardholder_fee') . '</strong> each.</td>
+			<td>Up to <strong>' . get_field('additional_cardholder_number') . ' additional cardholder</strong>, for <strong>$' . get_field('additional_cardholder_fee') . '</strong> each.</td>
 			</tr>';
 	}
 
